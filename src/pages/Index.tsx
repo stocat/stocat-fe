@@ -1,9 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TrendingUp, User, TrendingDown, Minus, Clock } from 'lucide-react';
+import { TrendingUp, User, TrendingDown, Minus } from 'lucide-react';
 import StockCard from '../components/StockCard';
-import LastUpdated from '../components/LastUpdated';
 import PurchaseDialog from '../components/PurchaseDialog';
 
 // 전체 주식 데이터 풀 (실제로는 API에서 가져올 데이터)
@@ -112,17 +110,11 @@ const Index = () => {
   const [balance, setBalance] = useState(1000000);
   const [ownedStocks, setOwnedStocks] = useState<OwnedStock[]>([]);
   const [stocks, setStocks] = useState<typeof allStockData>([]);
-  const [lastUpdated, setLastUpdated] = useState(new Date());
   const [selectedStock, setSelectedStock] = useState<typeof allStockData[0] | null>(null);
   const [showPurchaseDialog, setShowPurchaseDialog] = useState(false);
 
-  const currentTime = new Date();
-  const formattedDate = currentTime.toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long'
-  });
+  // USD 환율 (임시로 1,300원으로 설정)
+  const usdRate = 1300;
 
   const formatPrice = (price: number) => {
     return price.toLocaleString('ko-KR');
@@ -253,65 +245,56 @@ const Index = () => {
   const refreshStocks = () => {
     console.log('새로운 랜덤 종목 선택 및 데이터 새로고침');
     setStocks(selectRandomStocks());
-    setLastUpdated(new Date());
   };
 
   const totalProfitLoss = calculateTotalProfitLoss();
   const isProfit = totalProfitLoss.amount >= 0;
 
+  // 총 자산 계산 (보유 현금 + 주식 현재 가치)
+  const totalStockValue = ownedStocks.reduce((sum, stock) => sum + (stock.currentPrice * stock.quantity), 0);
+  const totalAssets = balance + totalStockValue;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="container mx-auto px-4 py-6 max-w-md">
-        {/* 헤더 */}
+        {/* 상단 헤더 - 보유 현금 */}
         <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <TrendingUp className="w-8 h-8 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-800">주식 투자 앱</h1>
+          <div className="text-left">
+            <div className="text-xs text-gray-500 mb-1">보유 현금</div>
+            <div className="text-lg font-bold text-gray-800">₩{formatPrice(balance)}</div>
           </div>
-          <button
-            onClick={navigateToMyPage}
-            className="p-2 rounded-lg bg-white shadow-sm border border-gray-200 hover:bg-gray-50 transition-colors"
-          >
-            <User className="w-5 h-5 text-gray-600" />
-          </button>
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <div className="text-xs text-gray-500 mb-1">USD</div>
+              <div className="text-lg font-bold text-gray-800">${formatPrice(Math.floor(balance / usdRate))}</div>
+            </div>
+            <button
+              onClick={navigateToMyPage}
+              className="p-2 rounded-lg bg-white shadow-sm border border-gray-200 hover:bg-gray-50 transition-colors"
+            >
+              <User className="w-5 h-5 text-gray-600" />
+            </button>
+          </div>
         </div>
 
-        {/* 전체 수익률 */}
-        {ownedStocks.length > 0 && (
-          <div className="mb-6 bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-            <div className="text-center">
-              <div className="text-sm text-gray-500 mb-1">전체 수익률</div>
-              <div className={`flex items-center justify-center gap-2 text-lg font-bold ${isProfit ? 'text-red-600' : 'text-blue-600'}`}>
-                {isProfit ? <TrendingUp className="w-5 h-5" /> : totalProfitLoss.amount < 0 ? <TrendingDown className="w-5 h-5" /> : <Minus className="w-5 h-5" />}
+        {/* 전체 자산 및 수익률 */}
+        <div className="mb-6 bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+          <div className="text-center">
+            <div className="text-lg font-bold text-gray-800 mb-2">
+              ₩{formatPrice(totalAssets)}
+            </div>
+            {ownedStocks.length > 0 && (
+              <div className={`flex items-center justify-center gap-2 text-sm ${isProfit ? 'text-red-600' : 'text-blue-600'}`}>
+                {isProfit ? <TrendingUp className="w-4 h-4" /> : totalProfitLoss.amount < 0 ? <TrendingDown className="w-4 h-4" /> : <Minus className="w-4 h-4" />}
                 <span>
-                  {isProfit ? '+' : ''}₩{formatPrice(Math.abs(totalProfitLoss.amount))}
-                </span>
-                <span className="text-sm">
-                  ({isProfit ? '+' : ''}{totalProfitLoss.percent.toFixed(2)}%)
+                  {isProfit ? '+' : ''}₩{formatPrice(Math.abs(totalProfitLoss.amount))} ({isProfit ? '+' : ''}{totalProfitLoss.percent.toFixed(2)}%)
                 </span>
               </div>
-            </div>
+            )}
           </div>
-        )}
-
-        {/* 보유 현금 (작게) */}
-        <div className="mb-4">
-          <div className="text-xs text-gray-500">보유 현금</div>
-          <div className="text-sm font-medium text-gray-700">₩{formatPrice(balance)}</div>
         </div>
-
-        {/* 날짜 표시 */}
-        <div className="flex items-center justify-center gap-2 text-gray-600 mb-6">
-          <Clock className="w-4 h-4" />
-          <span className="text-sm">{formattedDate}</span>
-        </div>
-
-        <LastUpdated lastUpdated={lastUpdated} />
         
-        <div className="space-y-4 mt-6">
-          <h2 className="text-lg font-bold text-gray-800 text-center">
-            오늘의 랜덤 종목 (실시간 업데이트)
-          </h2>
+        <div className="space-y-4">
           {stocks.map((stock) => (
             <StockCard 
               key={stock.id} 
@@ -321,21 +304,13 @@ const Index = () => {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-6 text-center">
           <button
             onClick={refreshStocks}
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl w-full"
           >
             새로운 종목 선택
           </button>
-        </div>
-
-        {/* 안내 문구 */}
-        <div className="mt-6 text-center">
-          <p className="text-gray-500 text-sm">
-            랜덤으로 선택된 5개 종목의<br/>
-            실시간 주가 정보를 확인하세요
-          </p>
         </div>
 
         <PurchaseDialog
