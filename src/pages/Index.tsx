@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import StockCard from '../components/StockCard';
 import PurchaseDialog from '../components/PurchaseDialog';
+import { useNavigate } from "react-router-dom";
 
 // 전체 주식 데이터
 const allStockData = [
@@ -168,6 +169,15 @@ const Index = () => {
     return { amount: profitLossAmount, percent: profitLossPercent };
   };
 
+  // 내 주식 전체 평가금액(현재가 × 수량의 총합)
+  const getTotalCurrentStockValue = () => {
+    if (ownedStocks.length === 0) return 0;
+    return ownedStocks.reduce(
+      (sum, stock) => sum + stock.currentPrice * stock.quantity,
+      0,
+    );
+  };
+
   // 초기 로딩 및 실시간 시뮬레이션
   useEffect(() => {
     setStocks(selectRandomStocks());
@@ -221,6 +231,10 @@ const Index = () => {
   const totalProfitLoss = calculateTotalProfitLossForOwned();
   const isProfit = totalProfitLoss.amount >= 0;
 
+  const totalCurrentStockValue = getTotalCurrentStockValue();
+
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="container mx-auto px-4 py-6 max-w-md">
@@ -229,77 +243,77 @@ const Index = () => {
           {/* 원화 */}
           <div className="flex-1">
             <div className="text-xs text-gray-500 mb-1">원화</div>
-            <div className="text-lg font-bold text-gray-800">₩{formatPrice(balance)}</div>
+            <div className="text-lg font-bold text-gray-800">
+              ₩{formatPrice(balance)}
+            </div>
           </div>
           {/* 우측: 달러 */}
           <div className="flex-1 text-right">
             <div className="text-xs text-gray-500 mb-1">달러</div>
-            <div className="text-lg font-bold text-gray-800">${formatPrice(Math.floor(balance / usdRate))}</div>
+            <div className="text-lg font-bold text-gray-800">
+              ${formatPrice(Math.floor(balance / usdRate))}
+            </div>
           </div>
         </div>
 
-        {/* 내 전체 수익률 (보유주식 있을 때만) */}
+        {/* 내 전체 수익률 + 전체 평가금액 & 내 주식 버튼 */}
         <div className="mb-6 bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-          <div className="text-center">
-            <div className="text-base font-semibold text-gray-600 mb-2">내 전체 수익률</div>
-            {ownedStocks.length > 0 ? (
-              <div className={`flex items-center justify-center gap-2 text-md ${isProfit ? 'text-red-600' : 'text-blue-600'}`}>
-                {isProfit ? <TrendingUp className="w-4 h-4" /> : totalProfitLoss.amount < 0 ? <TrendingDown className="w-4 h-4" /> : <Minus className="w-4 h-4" />}
-                <span>
-                  {isProfit ? '+' : ''}₩{formatPrice(Math.abs(totalProfitLoss.amount))} ({isProfit ? '+' : ''}{totalProfitLoss.percent.toFixed(2)}%)
-                </span>
-              </div>
-            ) : (
-              <div className="text-gray-400 text-center">0원 (0.00%)</div>
-            )}
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-base font-semibold text-gray-600">
+              내 전체 수익률
+            </div>
+            <button
+              className="text-blue-600 text-sm font-semibold hover:underline"
+              onClick={() =>
+                navigate("/mystocks", {
+                  state: { ownedStocks },
+                })
+              }
+            >
+              내 주식 &gt;
+            </button>
+          </div>
+          {/* 평가금액 + 수익정보 */}
+          <div className="text-center space-y-1">
+            <div className="font-bold text-lg text-gray-800">
+              {totalCurrentStockValue > 0
+                ? `₩${formatPrice(totalCurrentStockValue)}`
+                : "0원"}
+            </div>
+            <div
+              className={`flex items-center justify-center gap-2 text-md ${
+                isProfit
+                  ? "text-red-600"
+                  : totalProfitLoss.amount < 0
+                  ? "text-blue-600"
+                  : "text-gray-600"
+              }`}
+            >
+              {isProfit ? (
+                <TrendingUp className="w-4 h-4" />
+              ) : totalProfitLoss.amount < 0 ? (
+                <TrendingDown className="w-4 h-4" />
+              ) : (
+                <Minus className="w-4 h-4" />
+              )}
+              <span>
+                {isProfit ? "+" : ""}
+                ₩{formatPrice(Math.abs(totalProfitLoss.amount))} (
+                {isProfit ? "+" : ""}
+                {totalProfitLoss.percent.toFixed(2)}%)
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* 내 주식 버튼 */}
-        <div className="mb-4 text-center">
-          <button
-            onClick={() => setShowMyStocks((prev) => !prev)}
-            className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-xl shadow transition-all duration-150"
-          >
-            내 주식
-          </button>
-        </div>
-
-        {/* 내 주식 목록 - 토글 */}
-        {showMyStocks && (
-          <div className="mb-6">
-            {ownedStocks.length > 0 ? (
-              <div className="space-y-3">
-                {ownedStocks.map(stock => (
-                  <div
-                    key={stock.id}
-                    className="flex justify-between items-center rounded-lg border px-4 py-3 bg-white shadow-sm"
-                  >
-                    <div>
-                      <div className="font-bold text-gray-800">{stock.name}</div>
-                      <div className="text-xs text-gray-500">{stock.symbol}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-bold text-blue-700">
-                        {stock.quantity}주
-                      </div>
-                      <div className="text-xs text-gray-600">
-                        ₩{formatPrice(stock.currentPrice)} /₩{formatPrice(stock.purchasePrice)}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center text-gray-400 py-6">보유 주식이 없습니다.</div>
-            )}
-          </div>
-        )}
-        
         {/* 개별 종목 카드 */}
         <div className="space-y-4">
           {stocks.map((stock) => (
-            <StockCard key={stock.id} stock={stock} onClick={() => handleStockClick(stock)} />
+            <StockCard
+              key={stock.id}
+              stock={stock}
+              onClick={() => handleStockClick(stock)}
+            />
           ))}
         </div>
 
