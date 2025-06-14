@@ -130,8 +130,8 @@ const Index = () => {
 
   // 시세 변동 시뮬레이션
   const simulateRealtimePriceUpdate = () => {
-    setStocks(prevStocks =>
-      prevStocks.map(stock => {
+    setStocks(prevStocks => {
+      const newStocks = prevStocks.map(stock => {
         const changePercent = (Math.random() - 0.5) * 4;
         const changeAmount = Math.round(stock.previousClose * (changePercent / 100));
         const newPrice = stock.previousClose + changeAmount;
@@ -142,8 +142,14 @@ const Index = () => {
           changePercent: Number(changePercent.toFixed(2)),
           volume: stock.volume + Math.floor(Math.random() * 100000),
         };
-      })
-    );
+      });
+      // 만약 구매 다이얼로그가 열려 있으면, 현재 선택 종목 데이터도 실시간 동기화
+      if (showPurchaseDialog && selectedStock) {
+        const found = newStocks.find(s => s.id === selectedStock.id);
+        if (found) setSelectedStock(found);
+      }
+      return newStocks;
+    });
     // 보유 주식 가격 업데이트
     setOwnedStocks(prevOwnedStocks =>
       prevOwnedStocks.map(ownedStock => {
@@ -244,16 +250,14 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="container mx-auto px-4 py-6 max-w-md">
-        {/* 상단 현금 잔고 */}
+        {/* 현금 잔고 헤더 */}
         <div className="flex items-center justify-between mb-6 gap-4">
-          {/* 원화 */}
           <div className="flex-1">
             <div className="text-xs text-gray-500 mb-1">원화</div>
             <div className="text-lg font-bold text-gray-800">
               ₩{formatPrice(balance)}
             </div>
           </div>
-          {/* 우측: 달러 */}
           <div className="flex-1 text-right">
             <div className="text-xs text-gray-500 mb-1">달러</div>
             <div className="text-lg font-bold text-gray-800">
@@ -262,19 +266,20 @@ const Index = () => {
           </div>
         </div>
 
-        {/* 내 전체 수익률 + 전체 평가금액 & 내 주식 버튼 */}
-        <div className="mb-6 bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        {/* 내 주식 보기 버튼 및 전체 자산/수익 */}
+        <div className="mb-6 bg-white rounded-xl p-3 shadow-sm border border-gray-200">
+          {/* 내 주식 보기 > 버튼 */}
           <button
-            className="w-full flex justify-between items-center text-black text-base font-bold hover:bg-gray-50 rounded px-0 py-2 transition"
+            className="block text-black text-base font-bold text-left hover:bg-gray-50 rounded px-0 py-2 transition w-fit mb-2"
             onClick={() =>
               navigate("/mystocks", {
                 state: { ownedStocks },
               })
             }
           >
-            내 주식<span className="ml-2">{'>'}</span>
+            내 주식 보기 &gt;
           </button>
-          <div className="mt-2 text-center space-y-1">
+          <div className="mt-1 text-center space-y-1">
             <div className="font-bold text-lg text-gray-800">
               {ownedStocks.length > 0
                 ? `₩${formatPrice(getTotalCurrentStockValue())}`

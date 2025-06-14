@@ -44,22 +44,23 @@ const PurchaseDialog: React.FC<PurchaseDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-sm mx-4">
+      <DialogContent className="max-w-sm mx-4 p-4 pt-2 pb-3">
         <DialogHeader>
           <DialogTitle className="text-center">주식 구매 확인</DialogTitle>
         </DialogHeader>
 
-        <div className="py-4">
-          <div className="text-center mb-4">
-            <div className="text-sm text-gray-500">{stock.symbol}</div>
-            <div className="text-lg font-bold text-gray-800 mb-2">{stock.name}</div>
-            <div className="text-xl font-bold text-blue-600">
+        <div className="py-2">
+          {/* 종목 정보: 높이/공간 줄임 */}
+          <div className="text-center mb-2">
+            <div className="text-xs text-gray-500">{stock.symbol}</div>
+            <div className="text-base font-bold text-gray-800 mb-1">{stock.name}</div>
+            <div className="text-lg font-bold text-blue-600">
               ₩{formatPrice(stock.currentPrice)}
             </div>
           </div>
 
           {/* 수량 입력 */}
-          <div className="flex justify-center mb-3 gap-2 items-center">
+          <div className="flex justify-center mb-2 gap-2 items-center">
             <div className="text-sm text-gray-600">구매 수량:</div>
             <input
               type="number"
@@ -77,13 +78,13 @@ const PurchaseDialog: React.FC<PurchaseDialogProps> = ({
             <span className="text-xs text-gray-400">(최대 {maxBuy}주)</span>
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-3 text-center">
+          <div className="bg-gray-50 rounded-lg p-2 text-center">
             <div className="text-sm text-gray-600 mb-1">
               총 구매 금액: ₩{formatPrice(stock.currentPrice * quantity)}
             </div>
           </div>
 
-          <p className="text-sm text-gray-600 text-center mt-4">
+          <p className="text-sm text-gray-600 text-center mt-2">
             이 종목을 {quantity}주 구매하시겠습니까?
           </p>
         </div>
@@ -106,4 +107,3 @@ const PurchaseDialog: React.FC<PurchaseDialogProps> = ({
 };
 
 export default PurchaseDialog;
-
