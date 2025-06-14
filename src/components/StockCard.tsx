@@ -17,9 +17,10 @@ interface Stock {
 interface StockCardProps {
   stock: Stock;
   onClick: () => void;
+  compact?: boolean;
 }
 
-const StockCard: React.FC<StockCardProps> = ({ stock, onClick }) => {
+const StockCard: React.FC<StockCardProps> = ({ stock, onClick, compact }) => {
   const formatPrice = (price: number) => {
     return price.toLocaleString('ko-KR');
   };
@@ -54,10 +55,11 @@ const StockCard: React.FC<StockCardProps> = ({ stock, onClick }) => {
 
   return (
     <div 
-      className={`rounded-xl p-4 border-2 transition-all duration-200 hover:shadow-lg cursor-pointer active:scale-95 ${getChangeBgColor()}`}
+      className={`rounded-xl p-${compact ? '3' : '4'} border-2 transition-all duration-200 hover:shadow-lg cursor-pointer active:scale-95 ${getChangeBgColor()} ${compact ? 'min-h-0' : ''}`}
       onClick={onClick}
+      style={{ minHeight: compact ? 0 : undefined }}
     >
-      <div className="flex justify-between items-start mb-3">
+      <div className={`flex justify-between items-start mb-${compact ? '2' : '3'}`}>
         <div>
           <div className="text-xs text-gray-500 font-medium">
             {stock.symbol}
@@ -78,19 +80,17 @@ const StockCard: React.FC<StockCardProps> = ({ stock, onClick }) => {
           </div>
         </div>
       </div>
-
-      <div className={`text-center py-2 rounded-lg ${getChangeColor()}`}>
+      <div className={`text-center py-${compact ? '1' : '2'} rounded-lg ${getChangeColor()}`}>
         <span className="font-bold text-sm">
           ({stock.changePercent > 0 ? '+' : ''}{stock.changePercent.toFixed(2)}%)
         </span>
       </div>
-
-      <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-gray-600">
+      <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-gray-600">
         <div>
           <span className="block">전일종가</span>
           <span className="font-medium">₩{formatPrice(stock.previousClose)}</span>
         </div>
-        <div>
+        <div className="text-right">
           <span className="block">거래량</span>
           <span className="font-medium">{formatVolume(stock.volume)}</span>
         </div>

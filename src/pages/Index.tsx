@@ -3,6 +3,8 @@ import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import StockCard from '../components/StockCard';
 import PurchaseDialog from '../components/PurchaseDialog';
 import { useNavigate } from "react-router-dom";
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogFooter } from "@/components/ui/alert-dialog";
+import { Button } from "../components/ui/button";
 
 // 전체 주식 데이터
 const allStockData = [
@@ -113,6 +115,7 @@ const Index = () => {
   const [selectedStock, setSelectedStock] = useState<typeof allStockData[0] | null>(null);
   const [showPurchaseDialog, setShowPurchaseDialog] = useState(false);
   const [purchaseQuantity, setPurchaseQuantity] = useState(1);
+  const [showNotEnoughDialog, setShowNotEnoughDialog] = useState(false);
 
   // 내 주식 토글 상태
   const [showMyStocks, setShowMyStocks] = useState(false);
@@ -199,7 +202,7 @@ const Index = () => {
   // 주식 카드 클릭 (구매 다이얼로그)
   const handleStockClick = (stock: typeof allStockData[0]) => {
     if (balance < stock.currentPrice) {
-      alert('잔액이 부족합니다!');
+      setShowNotEnoughDialog(true);
       return;
     }
     setSelectedStock(stock);
@@ -305,12 +308,13 @@ const Index = () => {
         </div>
 
         {/* 개별 종목 카드 */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {stocks.map((stock) => (
             <StockCard
               key={stock.id}
               stock={stock}
               onClick={() => handleStockClick(stock)}
+              compact
             />
           ))}
         </div>
@@ -324,6 +328,19 @@ const Index = () => {
           setQuantity={setPurchaseQuantity}
           balance={balance}
         />
+
+        {/* 잔액 부족 안내 팝업 */}
+        <AlertDialog open={showNotEnoughDialog} onOpenChange={setShowNotEnoughDialog}>
+          <AlertDialogContent className="max-w-xs">
+            <AlertDialogHeader>
+              <AlertDialogTitle>구매 불가</AlertDialogTitle>
+            </AlertDialogHeader>
+            <div className="py-2 text-center text-gray-700">현재 잔액이 부족합니다.</div>
+            <AlertDialogFooter>
+              <Button onClick={() => setShowNotEnoughDialog(false)} className="w-full">확인</Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );
