@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import StockCard from '../components/StockCard';
 import StockHeader from '../components/StockHeader';
@@ -66,13 +66,11 @@ const mockStockData = [
   }
 ];
 
-interface StockPurchaseProps {
-  balance: number;
-  onPurchase: (stock: typeof mockStockData[0]) => void;
-}
-
-const StockPurchase: React.FC<StockPurchaseProps> = ({ balance, onPurchase }) => {
+const StockPurchase: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { balance, onPurchase } = location.state || { balance: 0, onPurchase: () => {} };
+  
   const [stocks, setStocks] = useState(mockStockData);
   const [lastUpdated, setLastUpdated] = useState(new Date());
   const [selectedStock, setSelectedStock] = useState<typeof mockStockData[0] | null>(null);
