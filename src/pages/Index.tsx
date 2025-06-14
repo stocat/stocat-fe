@@ -1,11 +1,108 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState, useEffect } from 'react';
+import StockCard from '../components/StockCard';
+import StockHeader from '../components/StockHeader';
+import LastUpdated from '../components/LastUpdated';
+
+// 샘플 주식 데이터 (실제로는 API에서 가져올 데이터)
+const mockStockData = [
+  {
+    id: 1,
+    symbol: '005930',
+    name: '삼성전자',
+    currentPrice: 71800,
+    changeAmount: 800,
+    changePercent: 1.13,
+    previousClose: 71000,
+    volume: 15420000,
+    marketCap: '428조 6,550억'
+  },
+  {
+    id: 2,
+    symbol: '000660',
+    name: 'SK하이닉스',
+    currentPrice: 89400,
+    changeAmount: -1200,
+    changePercent: -1.32,
+    previousClose: 90600,
+    volume: 8920000,
+    marketCap: '65조 1,200억'
+  },
+  {
+    id: 3,
+    symbol: '035420',
+    name: 'NAVER',
+    currentPrice: 158000,
+    changeAmount: 2500,
+    changePercent: 1.61,
+    previousClose: 155500,
+    volume: 2150000,
+    marketCap: '25조 8,400억'
+  },
+  {
+    id: 4,
+    symbol: '005380',
+    name: '현대차',
+    currentPrice: 196000,
+    changeAmount: -3000,
+    changePercent: -1.51,
+    previousClose: 199000,
+    volume: 1890000,
+    marketCap: '42조 1,800억'
+  },
+  {
+    id: 5,
+    symbol: '051910',
+    name: 'LG화학',
+    currentPrice: 420000,
+    changeAmount: 8500,
+    changePercent: 2.07,
+    previousClose: 411500,
+    volume: 650000,
+    marketCap: '29조 6,400억'
+  }
+];
 
 const Index = () => {
+  const [stocks, setStocks] = useState(mockStockData);
+  const [lastUpdated, setLastUpdated] = useState(new Date());
+
+  // 실제 환경에서는 주식 API를 호출하는 함수
+  const fetchStockData = () => {
+    console.log('주식 데이터를 업데이트합니다...');
+    // 여기서 실제 API 호출 로직 구현
+    setLastUpdated(new Date());
+  };
+
+  useEffect(() => {
+    // 30초마다 데이터 업데이트 시뮬레이션
+    const interval = setInterval(() => {
+      fetchStockData();
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="container mx-auto px-4 py-8">
+        <StockHeader />
+        <LastUpdated lastUpdated={lastUpdated} />
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mt-8">
+          {stocks.map((stock) => (
+            <StockCard key={stock.id} stock={stock} />
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <button
+            onClick={fetchStockData}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+          >
+            데이터 새로고침
+          </button>
+        </div>
       </div>
     </div>
   );
