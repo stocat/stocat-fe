@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TrendingUp, User, TrendingDown, Minus } from 'lucide-react';
+import { TrendingUp, User, TrendingDown, Minus, Clock } from 'lucide-react';
 import StockCard from '../components/StockCard';
 import LastUpdated from '../components/LastUpdated';
 import PurchaseDialog from '../components/PurchaseDialog';
