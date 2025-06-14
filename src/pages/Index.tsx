@@ -155,7 +155,6 @@ const Index = () => {
       })
     );
     
-    setLastUpdated(new Date());
     console.log('실시간 주식 데이터 업데이트됨');
   };
 
