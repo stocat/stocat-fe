@@ -16,9 +16,10 @@ interface Stock {
 
 interface StockCardProps {
   stock: Stock;
+  onClick: () => void;
 }
 
-const StockCard: React.FC<StockCardProps> = ({ stock }) => {
+const StockCard: React.FC<StockCardProps> = ({ stock, onClick }) => {
   const formatPrice = (price: number) => {
     return price.toLocaleString('ko-KR');
   };
@@ -40,9 +41,9 @@ const StockCard: React.FC<StockCardProps> = ({ stock }) => {
   };
 
   const getChangeBgColor = () => {
-    if (stock.changeAmount > 0) return 'bg-red-50 border-red-200';
-    if (stock.changeAmount < 0) return 'bg-blue-50 border-blue-200';
-    return 'bg-gray-50 border-gray-200';
+    if (stock.changeAmount > 0) return 'bg-red-50 border-red-200 hover:bg-red-100';
+    if (stock.changeAmount < 0) return 'bg-blue-50 border-blue-200 hover:bg-blue-100';
+    return 'bg-gray-50 border-gray-200 hover:bg-gray-100';
   };
 
   const getTrendIcon = () => {
@@ -52,48 +53,46 @@ const StockCard: React.FC<StockCardProps> = ({ stock }) => {
   };
 
   return (
-    <div className={`rounded-xl p-6 border-2 transition-all duration-200 hover:shadow-lg hover:scale-105 ${getChangeBgColor()}`}>
-      {/* 주식 기본 정보 */}
-      <div className="mb-4">
-        <div className="text-sm text-gray-500 font-medium">
-          {stock.symbol}
+    <div 
+      className={`rounded-xl p-4 border-2 transition-all duration-200 hover:shadow-lg cursor-pointer active:scale-95 ${getChangeBgColor()}`}
+      onClick={onClick}
+    >
+      <div className="flex justify-between items-start mb-3">
+        <div>
+          <div className="text-xs text-gray-500 font-medium">
+            {stock.symbol}
+          </div>
+          <h3 className="text-base font-bold text-gray-800">
+            {stock.name}
+          </h3>
         </div>
-        <h3 className="text-lg font-bold text-gray-800 mb-1">
-          {stock.name}
-        </h3>
+        <div className="text-right">
+          <div className="text-lg font-bold text-gray-900">
+            ₩{formatPrice(stock.currentPrice)}
+          </div>
+          <div className={`flex items-center gap-1 text-sm ${getChangeColor()}`}>
+            {getTrendIcon()}
+            <span className="font-semibold">
+              {stock.changeAmount > 0 ? '+' : ''}{formatPrice(stock.changeAmount)}
+            </span>
+          </div>
+        </div>
       </div>
 
-      {/* 현재 가격 */}
-      <div className="mb-4">
-        <div className="text-2xl font-bold text-gray-900">
-          ₩{formatPrice(stock.currentPrice)}
-        </div>
-      </div>
-
-      {/* 변동 정보 */}
-      <div className={`flex items-center gap-2 mb-4 ${getChangeColor()}`}>
-        {getTrendIcon()}
-        <span className="font-semibold">
-          {stock.changeAmount > 0 ? '+' : ''}{formatPrice(stock.changeAmount)}
-        </span>
-        <span className="font-semibold">
+      <div className={`text-center py-2 rounded-lg ${getChangeColor()}`}>
+        <span className="font-bold text-sm">
           ({stock.changePercent > 0 ? '+' : ''}{stock.changePercent.toFixed(2)}%)
         </span>
       </div>
 
-      {/* 추가 정보 */}
-      <div className="space-y-2 text-sm text-gray-600">
-        <div className="flex justify-between">
-          <span>전일종가</span>
+      <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-gray-600">
+        <div>
+          <span className="block">전일종가</span>
           <span className="font-medium">₩{formatPrice(stock.previousClose)}</span>
         </div>
-        <div className="flex justify-between">
-          <span>거래량</span>
+        <div>
+          <span className="block">거래량</span>
           <span className="font-medium">{formatVolume(stock.volume)}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>시가총액</span>
-          <span className="font-medium">{stock.marketCap}</span>
         </div>
       </div>
     </div>

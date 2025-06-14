@@ -3,8 +3,11 @@ import React, { useState, useEffect } from 'react';
 import StockCard from '../components/StockCard';
 import StockHeader from '../components/StockHeader';
 import LastUpdated from '../components/LastUpdated';
+import UserBalance from '../components/UserBalance';
+import MyStocks from '../components/MyStocks';
+import PurchaseDialog from '../components/PurchaseDialog';
 
-// 샘플 주식 데이터 (실제로는 API에서 가져올 데이터)
+// 샘플 주식 데이터
 const mockStockData = [
   {
     id: 1,
@@ -63,19 +66,29 @@ const mockStockData = [
   }
 ];
 
+interface OwnedStock {
+  id: number;
+  symbol: string;
+  name: string;
+  quantity: number;
+  purchasePrice: number;
+  currentPrice: number;
+}
+
 const Index = () => {
   const [stocks, setStocks] = useState(mockStockData);
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [balance, setBalance] = useState(1000000); // 초기 100만원
+  const [ownedStocks, setOwnedStocks] = useState<OwnedStock[]>([]);
+  const [selectedStock, setSelectedStock] = useState<typeof mockStockData[0] | null>(null);
+  const [showPurchaseDialog, setShowPurchaseDialog] = useState(false);
 
-  // 실제 환경에서는 주식 API를 호출하는 함수
   const fetchStockData = () => {
     console.log('주식 데이터를 업데이트합니다...');
-    // 여기서 실제 API 호출 로직 구현
     setLastUpdated(new Date());
   };
 
   useEffect(() => {
-    // 30초마다 데이터 업데이트 시뮬레이션
     const interval = setInterval(() => {
       fetchStockData();
     }, 30000);
@@ -83,26 +96,85 @@ const Index = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleStockClick = (stock: typeof mockStockData[0]) => {
+    if (balance < stock.currentPrice) {
+      alert('잔액이 부족합니다!');
+      return;
+    }
+    setSelectedStock(stock);
+    setShowPurchaseDialog(true);
+  };
+
+  const handlePurchase = () => {
+    if (!selectedStock) return;
+
+    const newBalance = balance - selectedStock.currentPrice;
+    setBalance(newBalance);
+
+    const existingStock = ownedStocks.find(stock => stock.id === selectedStock.id);
+    
+    if (existingStock) {
+      setOwnedStocks(prev => prev.map(stock => 
+        stock.id === selectedStock.id 
+          ? { ...stock, quantity: stock.quantity + 1 }
+          : stock
+      ));
+    } else {
+      const newOwnedStock: OwnedStock = {
+        id: selectedStock.id,
+        symbol: selectedStock.symbol,
+        name: selectedStock.name,
+        quantity: 1,
+        purchasePrice: selectedStock.currentPrice,
+        currentPrice: selectedStock.currentPrice
+      };
+      setOwnedStocks(prev => [...prev, newOwnedStock]);
+    }
+
+    setShowPurchaseDialog(false);
+    setSelectedStock(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-6 max-w-md">
         <StockHeader />
         <LastUpdated lastUpdated={lastUpdated} />
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mt-8">
+        <UserBalance balance={balance} />
+        
+        <div className="space-y-4 mt-6">
+          <h2 className="text-lg font-bold text-gray-800 text-center">
+            오늘의 추천 종목 (1개만 선택 가능)
+          </h2>
           {stocks.map((stock) => (
-            <StockCard key={stock.id} stock={stock} />
+            <StockCard 
+              key={stock.id} 
+              stock={stock} 
+              onClick={() => handleStockClick(stock)}
+            />
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        {ownedStocks.length > 0 && (
+          <MyStocks ownedStocks={ownedStocks} />
+        )}
+
+        <div className="mt-8 text-center">
           <button
             onClick={fetchStockData}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl w-full"
           >
             데이터 새로고침
           </button>
         </div>
+
+        <PurchaseDialog
+          stock={selectedStock}
+          isOpen={showPurchaseDialog}
+          onClose={() => setShowPurchaseDialog(false)}
+          onConfirm={handlePurchase}
+        />
       </div>
     </div>
   );
