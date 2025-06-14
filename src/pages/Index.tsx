@@ -112,6 +112,7 @@ const Index = () => {
   const [stocks, setStocks] = useState<typeof allStockData>([]);
   const [selectedStock, setSelectedStock] = useState<typeof allStockData[0] | null>(null);
   const [showPurchaseDialog, setShowPurchaseDialog] = useState(false);
+  const [purchaseQuantity, setPurchaseQuantity] = useState(1);
 
   // 내 주식 토글 상태
   const [showMyStocks, setShowMyStocks] = useState(false);
@@ -196,20 +197,25 @@ const Index = () => {
       return;
     }
     setSelectedStock(stock);
+    setPurchaseQuantity(1);
     setShowPurchaseDialog(true);
   };
 
   // 주식 구매 처리
   const handlePurchase = () => {
     if (!selectedStock) return;
-    const newBalance = balance - selectedStock.currentPrice;
-    setBalance(newBalance);
+    const totalCost = selectedStock.currentPrice * purchaseQuantity;
+    if (balance < totalCost) {
+      alert("잔액이 부족합니다!");
+      return;
+    }
+    setBalance(prevBalance => prevBalance - totalCost);
 
     const existingStock = ownedStocks.find(ownedStock => ownedStock.id === selectedStock.id);
     if (existingStock) {
       setOwnedStocks(prev => prev.map(ownedStock =>
         ownedStock.id === selectedStock.id
-          ? { ...ownedStock, quantity: ownedStock.quantity + 1 }
+          ? { ...ownedStock, quantity: ownedStock.quantity + purchaseQuantity }
           : ownedStock
       ));
     } else {
@@ -217,7 +223,7 @@ const Index = () => {
         id: selectedStock.id,
         symbol: selectedStock.symbol,
         name: selectedStock.name,
-        quantity: 1,
+        quantity: purchaseQuantity,
         purchasePrice: selectedStock.currentPrice,
         currentPrice: selectedStock.currentPrice
       };
@@ -258,48 +264,35 @@ const Index = () => {
 
         {/* 내 전체 수익률 + 전체 평가금액 & 내 주식 버튼 */}
         <div className="mb-6 bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-          <div className="flex items-center justify-between mb-2">
-            <div className="text-base font-semibold text-gray-600">
-              내 전체 수익률
-            </div>
-            <button
-              className="text-blue-600 text-sm font-semibold hover:underline"
-              onClick={() =>
-                navigate("/mystocks", {
-                  state: { ownedStocks },
-                })
-              }
-            >
-              내 주식 &gt;
-            </button>
-          </div>
-          {/* 평가금액 + 수익정보 */}
-          <div className="text-center space-y-1">
+          <button
+            className="w-full flex justify-between items-center text-black text-base font-bold hover:bg-gray-50 rounded px-0 py-2 transition"
+            onClick={() =>
+              navigate("/mystocks", {
+                state: { ownedStocks },
+              })
+            }
+          >
+            내 주식<span className="ml-2">{'>'}</span>
+          </button>
+          <div className="mt-2 text-center space-y-1">
             <div className="font-bold text-lg text-gray-800">
-              {totalCurrentStockValue > 0
-                ? `₩${formatPrice(totalCurrentStockValue)}`
+              {ownedStocks.length > 0
+                ? `₩${formatPrice(getTotalCurrentStockValue())}`
                 : "0원"}
             </div>
             <div
               className={`flex items-center justify-center gap-2 text-md ${
-                isProfit
+                totalProfitLoss.amount > 0
                   ? "text-red-600"
                   : totalProfitLoss.amount < 0
                   ? "text-blue-600"
                   : "text-gray-600"
               }`}
             >
-              {isProfit ? (
-                <TrendingUp className="w-4 h-4" />
-              ) : totalProfitLoss.amount < 0 ? (
-                <TrendingDown className="w-4 h-4" />
-              ) : (
-                <Minus className="w-4 h-4" />
-              )}
               <span>
-                {isProfit ? "+" : ""}
+                {totalProfitLoss.amount > 0 ? "+" : ""}
                 ₩{formatPrice(Math.abs(totalProfitLoss.amount))} (
-                {isProfit ? "+" : ""}
+                {totalProfitLoss.amount > 0 ? "+" : ""}
                 {totalProfitLoss.percent.toFixed(2)}%)
               </span>
             </div>
@@ -322,6 +315,9 @@ const Index = () => {
           isOpen={showPurchaseDialog}
           onClose={() => setShowPurchaseDialog(false)}
           onConfirm={handlePurchase}
+          quantity={purchaseQuantity}
+          setQuantity={setPurchaseQuantity}
+          balance={balance}
         />
       </div>
     </div>

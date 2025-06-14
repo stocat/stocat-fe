@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 interface OwnedStock {
@@ -13,11 +13,9 @@ interface OwnedStock {
 }
 
 function getOwnedStocks(): OwnedStock[] {
-  // localStorage나 전역상태 등에서 실제 앱이라면 가져오지만,
-  // 여기서는 history.back 등으로 가정.
-  // 임시: window.history.state에 저장
   try {
-    const stocks = window.history.state?.usr?.ownedStocks;
+    const location = window.history.state?.usr ? window.history.state.usr : {};
+    const stocks = location?.ownedStocks;
     if (Array.isArray(stocks)) return stocks;
     return [];
   } catch {
@@ -47,17 +45,17 @@ const MyStocks: React.FC = () => {
             {ownedStocks.map((stock) => (
               <div
                 key={stock.id}
-                className="flex justify-between items-center rounded-lg border px-4 py-3 bg-white shadow-sm"
+                className="flex justify-between items-end rounded-lg border px-4 py-3 bg-white shadow-sm"
               >
-                <div>
-                  <div className="font-bold text-gray-800">{stock.name}</div>
-                  <div className="text-xs text-gray-500">{stock.symbol}</div>
-                </div>
-                <div className="text-right">
-                  <div className="font-bold text-blue-700">{stock.quantity}주</div>
-                  <div className="text-xs text-gray-600">
-                    ₩{formatPrice(stock.currentPrice)} /₩{formatPrice(stock.purchasePrice)}
+                <div className="flex flex-col justify-between h-full">
+                  <div>
+                    <div className="font-bold text-gray-800">{stock.name}</div>
+                    <div className="text-xs text-gray-500">{stock.symbol}</div>
                   </div>
+                  <div className="mt-5 text-sm text-gray-600">수량: <span className="font-semibold">{stock.quantity}주</span></div>
+                </div>
+                <div className="text-right font-bold text-blue-700 min-w-[110px]">
+                  ₩{formatPrice(stock.currentPrice * stock.quantity)}
                 </div>
               </div>
             ))}
@@ -71,3 +69,4 @@ const MyStocks: React.FC = () => {
 };
 
 export default MyStocks;
+
