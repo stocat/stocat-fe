@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { TrendingUp, User, TrendingDown, Minus } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import StockCard from '../components/StockCard';
 import PurchaseDialog from '../components/PurchaseDialog';
 
-// 전체 주식 데이터 풀 (실제로는 API에서 가져올 데이터)
+// 전체 주식 데이터
 const allStockData = [
   {
     id: 1,
@@ -106,93 +105,81 @@ interface OwnedStock {
 }
 
 const Index = () => {
-  const navigate = useNavigate();
+  // 상태값 관리
   const [balance, setBalance] = useState(1000000);
   const [ownedStocks, setOwnedStocks] = useState<OwnedStock[]>([]);
   const [stocks, setStocks] = useState<typeof allStockData>([]);
   const [selectedStock, setSelectedStock] = useState<typeof allStockData[0] | null>(null);
   const [showPurchaseDialog, setShowPurchaseDialog] = useState(false);
 
-  // USD 환율 (임시로 1,300원으로 설정)
+  // 내 주식 토글 상태
+  const [showMyStocks, setShowMyStocks] = useState(false);
+
+  // USD 환율 (임시)
   const usdRate = 1300;
 
-  const formatPrice = (price: number) => {
-    return price.toLocaleString('ko-KR');
-  };
+  const formatPrice = (price: number) => price.toLocaleString('ko-KR');
 
-  // 랜덤으로 5개 종목 선택
+  // 랜덤 5종목
   const selectRandomStocks = () => {
     const shuffled = [...allStockData].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 5);
   };
 
-  // 실시간 가격 업데이트 시뮬레이션 (실제로는 웹소켓 연결)
+  // 시세 변동 시뮬레이션
   const simulateRealtimePriceUpdate = () => {
-    setStocks(prevStocks => 
+    setStocks(prevStocks =>
       prevStocks.map(stock => {
-        // -2% ~ +2% 범위에서 랜덤 가격 변동
         const changePercent = (Math.random() - 0.5) * 4;
         const changeAmount = Math.round(stock.previousClose * (changePercent / 100));
         const newPrice = stock.previousClose + changeAmount;
-        
         return {
           ...stock,
-          currentPrice: Math.max(newPrice, 1000), // 최소 1000원
+          currentPrice: Math.max(newPrice, 1000),
           changeAmount,
           changePercent: Number(changePercent.toFixed(2)),
-          volume: stock.volume + Math.floor(Math.random() * 100000)
+          volume: stock.volume + Math.floor(Math.random() * 100000),
         };
       })
     );
-    
-    // 보유 주식 현재가도 업데이트
+    // 보유 주식 가격 업데이트
     setOwnedStocks(prevOwnedStocks =>
       prevOwnedStocks.map(ownedStock => {
         const updatedStock = stocks.find(stock => stock.id === ownedStock.id);
-        return updatedStock 
+        return updatedStock
           ? { ...ownedStock, currentPrice: updatedStock.currentPrice }
           : ownedStock;
       })
     );
-    
     console.log('실시간 주식 데이터 업데이트됨');
   };
 
-  // 전체 수익률 계산
-  const calculateTotalProfitLoss = () => {
+  // (보유 주식의) 전체 수익률 계산
+  const calculateTotalProfitLossForOwned = () => {
     if (ownedStocks.length === 0) return { amount: 0, percent: 0 };
-    
-    let totalPurchaseValue = 0;
-    let totalCurrentValue = 0;
-    
+    let totalPurchaseValue = 0, totalCurrentValue = 0;
     ownedStocks.forEach(stock => {
       totalPurchaseValue += stock.purchasePrice * stock.quantity;
       totalCurrentValue += stock.currentPrice * stock.quantity;
     });
-    
     const profitLossAmount = totalCurrentValue - totalPurchaseValue;
-    const profitLossPercent = totalPurchaseValue > 0 ? (profitLossAmount / totalPurchaseValue) * 100 : 0;
-    
-    return {
-      amount: profitLossAmount,
-      percent: profitLossPercent
-    };
+    const profitLossPercent =
+      totalPurchaseValue > 0 ? (profitLossAmount / totalPurchaseValue) * 100 : 0;
+    return { amount: profitLossAmount, percent: profitLossPercent };
   };
 
-  // 초기 랜덤 종목 선택
+  // 초기 로딩 및 실시간 시뮬레이션
   useEffect(() => {
     setStocks(selectRandomStocks());
   }, []);
-
-  // 실시간 가격 업데이트 (3초마다)
   useEffect(() => {
     const interval = setInterval(() => {
       simulateRealtimePriceUpdate();
     }, 3000);
-
     return () => clearInterval(interval);
   }, [stocks]);
 
+  // 주식 카드 클릭 (구매 다이얼로그)
   const handleStockClick = (stock: typeof allStockData[0]) => {
     if (balance < stock.currentPrice) {
       alert('잔액이 부족합니다!');
@@ -202,17 +189,16 @@ const Index = () => {
     setShowPurchaseDialog(true);
   };
 
+  // 주식 구매 처리
   const handlePurchase = () => {
     if (!selectedStock) return;
-    
     const newBalance = balance - selectedStock.currentPrice;
     setBalance(newBalance);
 
     const existingStock = ownedStocks.find(ownedStock => ownedStock.id === selectedStock.id);
-    
     if (existingStock) {
-      setOwnedStocks(prev => prev.map(ownedStock => 
-        ownedStock.id === selectedStock.id 
+      setOwnedStocks(prev => prev.map(ownedStock =>
+        ownedStock.id === selectedStock.id
           ? { ...ownedStock, quantity: ownedStock.quantity + 1 }
           : ownedStock
       ));
@@ -227,89 +213,94 @@ const Index = () => {
       };
       setOwnedStocks(prev => [...prev, newOwnedStock]);
     }
-    
     setShowPurchaseDialog(false);
     setSelectedStock(null);
   };
 
-  const navigateToMyPage = () => {
-    navigate('/mypage', { 
-      state: { 
-        balance, 
-        ownedStocks 
-      } 
-    });
-  };
-
-  const refreshStocks = () => {
-    console.log('새로운 랜덤 종목 선택 및 데이터 새로고침');
-    setStocks(selectRandomStocks());
-  };
-
-  const totalProfitLoss = calculateTotalProfitLoss();
+  // 총 자산/수익 등 계산
+  const totalProfitLoss = calculateTotalProfitLossForOwned();
   const isProfit = totalProfitLoss.amount >= 0;
-
-  // 총 자산 계산 (보유 현금 + 주식 현재 가치)
-  const totalStockValue = ownedStocks.reduce((sum, stock) => sum + (stock.currentPrice * stock.quantity), 0);
-  const totalAssets = balance + totalStockValue;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="container mx-auto px-4 py-6 max-w-md">
-        {/* 상단 헤더 - 보유 현금 */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="text-left">
-            <div className="text-xs text-gray-500 mb-1">보유 현금</div>
+        {/* 상단 현금 잔고 */}
+        <div className="flex items-center justify-between mb-6 gap-4">
+          {/* 원화 */}
+          <div className="flex-1">
+            <div className="text-xs text-gray-500 mb-1">원화</div>
             <div className="text-lg font-bold text-gray-800">₩{formatPrice(balance)}</div>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="text-right">
-              <div className="text-xs text-gray-500 mb-1">USD</div>
-              <div className="text-lg font-bold text-gray-800">${formatPrice(Math.floor(balance / usdRate))}</div>
-            </div>
-            <button
-              onClick={navigateToMyPage}
-              className="p-2 rounded-lg bg-white shadow-sm border border-gray-200 hover:bg-gray-50 transition-colors"
-            >
-              <User className="w-5 h-5 text-gray-600" />
-            </button>
+          {/* 우측: 달러 */}
+          <div className="flex-1 text-right">
+            <div className="text-xs text-gray-500 mb-1">달러</div>
+            <div className="text-lg font-bold text-gray-800">${formatPrice(Math.floor(balance / usdRate))}</div>
           </div>
         </div>
 
-        {/* 전체 자산 및 수익률 */}
+        {/* 내 전체 수익률 (보유주식 있을 때만) */}
         <div className="mb-6 bg-white rounded-xl p-4 shadow-sm border border-gray-200">
           <div className="text-center">
-            <div className="text-lg font-bold text-gray-800 mb-2">
-              ₩{formatPrice(totalAssets)}
-            </div>
-            {ownedStocks.length > 0 && (
-              <div className={`flex items-center justify-center gap-2 text-sm ${isProfit ? 'text-red-600' : 'text-blue-600'}`}>
+            <div className="text-base font-semibold text-gray-600 mb-2">내 전체 수익률</div>
+            {ownedStocks.length > 0 ? (
+              <div className={`flex items-center justify-center gap-2 text-md ${isProfit ? 'text-red-600' : 'text-blue-600'}`}>
                 {isProfit ? <TrendingUp className="w-4 h-4" /> : totalProfitLoss.amount < 0 ? <TrendingDown className="w-4 h-4" /> : <Minus className="w-4 h-4" />}
                 <span>
                   {isProfit ? '+' : ''}₩{formatPrice(Math.abs(totalProfitLoss.amount))} ({isProfit ? '+' : ''}{totalProfitLoss.percent.toFixed(2)}%)
                 </span>
               </div>
+            ) : (
+              <div className="text-gray-400 text-center">0원 (0.00%)</div>
             )}
           </div>
         </div>
-        
-        <div className="space-y-4">
-          {stocks.map((stock) => (
-            <StockCard 
-              key={stock.id} 
-              stock={stock} 
-              onClick={() => handleStockClick(stock)}
-            />
-          ))}
+
+        {/* 내 주식 버튼 */}
+        <div className="mb-4 text-center">
+          <button
+            onClick={() => setShowMyStocks((prev) => !prev)}
+            className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-xl shadow transition-all duration-150"
+          >
+            내 주식
+          </button>
         </div>
 
-        <div className="mt-6 text-center">
-          <button
-            onClick={refreshStocks}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl w-full"
-          >
-            새로운 종목 선택
-          </button>
+        {/* 내 주식 목록 - 토글 */}
+        {showMyStocks && (
+          <div className="mb-6">
+            {ownedStocks.length > 0 ? (
+              <div className="space-y-3">
+                {ownedStocks.map(stock => (
+                  <div
+                    key={stock.id}
+                    className="flex justify-between items-center rounded-lg border px-4 py-3 bg-white shadow-sm"
+                  >
+                    <div>
+                      <div className="font-bold text-gray-800">{stock.name}</div>
+                      <div className="text-xs text-gray-500">{stock.symbol}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-blue-700">
+                        {stock.quantity}주
+                      </div>
+                      <div className="text-xs text-gray-600">
+                        ₩{formatPrice(stock.currentPrice)} /₩{formatPrice(stock.purchasePrice)}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center text-gray-400 py-6">보유 주식이 없습니다.</div>
+            )}
+          </div>
+        )}
+        
+        {/* 개별 종목 카드 */}
+        <div className="space-y-4">
+          {stocks.map((stock) => (
+            <StockCard key={stock.id} stock={stock} onClick={() => handleStockClick(stock)} />
+          ))}
         </div>
 
         <PurchaseDialog
