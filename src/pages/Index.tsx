@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TrendingUp, User, Clock } from 'lucide-react';
+import { TrendingUp, User, TrendingDown, Minus } from 'lucide-react';
 import StockCard from '../components/StockCard';
 import LastUpdated from '../components/LastUpdated';
 import PurchaseDialog from '../components/PurchaseDialog';
@@ -167,6 +166,27 @@ const Index = () => {
     console.log('실시간 주식 데이터 업데이트됨');
   };
 
+  // 전체 수익률 계산
+  const calculateTotalProfitLoss = () => {
+    if (ownedStocks.length === 0) return { amount: 0, percent: 0 };
+    
+    let totalPurchaseValue = 0;
+    let totalCurrentValue = 0;
+    
+    ownedStocks.forEach(stock => {
+      totalPurchaseValue += stock.purchasePrice * stock.quantity;
+      totalCurrentValue += stock.currentPrice * stock.quantity;
+    });
+    
+    const profitLossAmount = totalCurrentValue - totalPurchaseValue;
+    const profitLossPercent = totalPurchaseValue > 0 ? (profitLossAmount / totalPurchaseValue) * 100 : 0;
+    
+    return {
+      amount: profitLossAmount,
+      percent: profitLossPercent
+    };
+  };
+
   // 초기 랜덤 종목 선택
   useEffect(() => {
     setStocks(selectRandomStocks());
@@ -235,6 +255,9 @@ const Index = () => {
     setLastUpdated(new Date());
   };
 
+  const totalProfitLoss = calculateTotalProfitLoss();
+  const isProfit = totalProfitLoss.amount >= 0;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="container mx-auto px-4 py-6 max-w-md">
@@ -251,6 +274,24 @@ const Index = () => {
             <User className="w-5 h-5 text-gray-600" />
           </button>
         </div>
+
+        {/* 전체 수익률 */}
+        {ownedStocks.length > 0 && (
+          <div className="mb-6 bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+            <div className="text-center">
+              <div className="text-sm text-gray-500 mb-1">전체 수익률</div>
+              <div className={`flex items-center justify-center gap-2 text-lg font-bold ${isProfit ? 'text-red-600' : 'text-blue-600'}`}>
+                {isProfit ? <TrendingUp className="w-5 h-5" /> : totalProfitLoss.amount < 0 ? <TrendingDown className="w-5 h-5" /> : <Minus className="w-5 h-5" />}
+                <span>
+                  {isProfit ? '+' : ''}₩{formatPrice(Math.abs(totalProfitLoss.amount))}
+                </span>
+                <span className="text-sm">
+                  ({isProfit ? '+' : ''}{totalProfitLoss.percent.toFixed(2)}%)
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 보유 현금 (작게) */}
         <div className="mb-4">
