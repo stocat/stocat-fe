@@ -1,14 +1,13 @@
+import { themeClass } from "../shared/styles/vars.css";
 import * as styles from "./app.css";
 import { Outlet } from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
-    <div className={styles.viewport}>
+    <div className={`${themeClass} ${styles.viewport}`}>
       <div className={styles.mobileFrame}>
         <Outlet />
       </div>
     </div>
   );
 }
-
-export default App;
