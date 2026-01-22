@@ -1,4 +1,4 @@
-import { themeClass } from "../shared/styles/vars.css";
+import { themeClass } from "@/shared/styles/vars.css";
 import * as styles from "./app.css";
 import { Outlet } from "react-router-dom";
 

@@ -1,4 +1,4 @@
-import { vars } from "../../shared/styles/vars.css";
+import { vars } from "@/shared/styles/vars.css";
 import * as styles from "./ColorTestPage.css";
 
 const colorGroups = [
