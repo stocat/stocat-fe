@@ -1,9 +1,9 @@
 import { RouteObject } from "react-router-dom";
-import GreenPage from "./GreenPage";
+import ColorTestPage from "./ColorTestPage";
 
 export const testRoutes: RouteObject[] = [
   {
-    path: "test/green",
-    element: <GreenPage />,
+    path: "test/color",
+    element: <ColorTestPage />,
   },
 ];

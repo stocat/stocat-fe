@@ -4,11 +4,11 @@ export const grey = {
   200: "#dddddd",
   300: "#cecece",
   400: "#c5c5c5",
-  500: "#bbbbbb",
+  500: "#b6b6b6",
   600: "#a6a6a6",
   700: "#818181",
   800: "#646464",
-  900: "#4a4a4a",
+  900: "#1A1A1A",
 } as const;
 
 export const blue = {
