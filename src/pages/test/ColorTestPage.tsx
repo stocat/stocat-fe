@@ -67,6 +67,7 @@ const colorGroups = [
 export default function ColorTestPage() {
   return (
     <div className={styles.page}>
+      <div className=""> </div>
       {colorGroups.map((group) => (
         <section key={group.name} className={styles.section}>
           <h2 className={styles.title}>{group.name}</h2>
