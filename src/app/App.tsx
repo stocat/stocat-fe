@@ -1,11 +1,13 @@
-import "./App.css";
-import { myStyle } from "./style.css";
+import * as styles from "./app.css";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <div className={myStyle}>안녕하세요</div>
-    </>
+    <div className={styles.viewport}>
+      <div className={styles.mobileFrame}>
+        <Outlet />
+      </div>
+    </div>
   );
 }
 
