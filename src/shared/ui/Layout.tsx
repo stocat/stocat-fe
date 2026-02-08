@@ -16,7 +16,7 @@ export const Layout = () => {
                 <NavLink to="/" label="홈" active={isActive("/")} />
                 <NavLink to="/market" label="거래소" active={isActive("/market")} />
                 <NavLink to="/portfolio" label="포트폴리오" active={isActive("/portfolio")} />
-                <NavLink to="/analysis" label="분석" active={isActive("/analysis")} />
+                <NavLink to="/feed" label="피드" active={isActive("/feed")} />
             </nav>
         </div>
     );

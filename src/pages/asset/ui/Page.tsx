@@ -105,7 +105,7 @@ const DetailItem = ({ label, value }: { label: string; value: string }) => (
 const BottomActionBar = ({ id }: { id?: string }) => {
     const navigate = useNavigate();
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50 flex gap-3 max-w-md mx-auto">
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-[100] flex gap-3 max-w-md mx-auto">
             <button
                 onClick={() => navigate(`/buy/${id}`)}
                 className="flex-1 bg-blue-100 text-blue-600 py-3.5 rounded-xl font-bold hover:bg-blue-200 transition"

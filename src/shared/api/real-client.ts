@@ -45,10 +45,6 @@ class RealApiClient implements ApiClient {
         return body.data;
     }
 
-    async getUserSummary(): Promise<UserSummary> {
-        return this.fetch<UserSummary>('/user/summary');
-    }
-
     async getRecommendedStocks(type: MarketType): Promise<Stock[]> {
         return this.fetch<Stock[]>(`/stocks?type=${type}&limit=5`);
     }
@@ -77,6 +73,43 @@ class RealApiClient implements ApiClient {
 
     async getAnalysisReport(): Promise<AnalysisReport> {
         return this.fetch<AnalysisReport>('/analysis');
+    }
+
+    async getNews(): Promise<import("./types").News[]> {
+        return this.fetch<import("./types").News[]>('/news');
+    }
+
+    async buy(stockId: string, amount: number, price: number): Promise<boolean> {
+        return this.fetch<boolean>('/buy', {
+            method: 'POST',
+            body: JSON.stringify({ stockId, amount, price })
+        });
+    }
+
+    async sell(stockId: string, amount: number, price: number): Promise<boolean> {
+        return this.fetch<boolean>('/sell', {
+            method: 'POST',
+            body: JSON.stringify({ stockId, amount, price })
+        });
+    }
+
+    // Auth
+    async signup(req: import("./types").SignupRequest): Promise<void> {
+        return this.fetch<void>('/auth/signup', {
+            method: 'POST',
+            body: JSON.stringify(req)
+        });
+    }
+
+    async login(req: import("./types").LoginRequest): Promise<import("./types").AuthResponse> {
+        return this.fetch<import("./types").AuthResponse>('/auth/login', {
+            method: 'POST',
+            body: JSON.stringify(req)
+        });
+    }
+
+    async getMe(): Promise<import("./types").UserSummary> {
+        return this.fetch<import("./types").UserSummary>('/auth/summary');
     }
 }
 

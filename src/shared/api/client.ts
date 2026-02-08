@@ -5,13 +5,6 @@ import { MOCK_STOCKS, MOCK_ASSETS, MOCK_ANALYSIS } from "./mock-data";
 class MockApiClient implements ApiClient {
     private stocks: Stock[] = MOCK_STOCKS;
 
-    async getUserSummary(): Promise<UserSummary> {
-        return {
-            name: "Jeong Gwonho",
-            id: "user-123"
-        };
-    }
-
     async getRecommendedStocks(type: MarketType): Promise<Stock[]> {
         // Return Top 5 by type (simulated)
         return this.stocks.filter(s => s.type === type).slice(0, 5);
@@ -40,6 +33,41 @@ class MockApiClient implements ApiClient {
 
     async getAnalysisReport(): Promise<AnalysisReport> {
         return MOCK_ANALYSIS;
+    }
+
+    async getNews(): Promise<import("./types").News[]> {
+        return import("./mock-data").then(m => m.MOCK_NEWS);
+    }
+
+    async buy(stockId: string, amount: number, price: number): Promise<boolean> {
+        console.log(`[Mock] Buy ${amount} of ${stockId} at ${price}`);
+        return true;
+    }
+
+    async sell(stockId: string, amount: number, price: number): Promise<boolean> {
+        console.log(`[Mock] Sell ${amount} of ${stockId} at ${price}`);
+        return true;
+    }
+
+    async signup(req: import("./types").SignupRequest): Promise<void> {
+        console.log(`[Mock] Signup: ${req.email}`);
+    }
+
+    async login(req: import("./types").LoginRequest): Promise<import("./types").AuthResponse> {
+        console.log(`[Mock] Login: ${req.email}`);
+        return {
+            accessToken: "mock-access-token",
+            refreshToken: "mock-refresh-token"
+        };
+    }
+
+    async getMe(): Promise<UserSummary> {
+        return {
+            name: "Mock User",
+            id: "mock-id",
+            email: "mock@example.com",
+            nickname: "Mock User"
+        };
     }
 }
 

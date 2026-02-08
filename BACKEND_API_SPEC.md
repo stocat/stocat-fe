@@ -29,7 +29,65 @@
 
 Base URL: `http://localhost:8080/api`
 
-> **Real-time 정책**: HTTP API는 종목의 **정적 정보(코드, 이름 등)**만 반환합니다. 현재가, 변동률 등 **동적 데이터는 WebSocket**을 통해서만 제공됩니다. 프론트엔드는 소켓 연결 및 데이터 수신이 완료될 때까지 로딩 화면을 유지합니다.
+## Authentication API
+
+### 1. 회원 가입
+- **POST** `/auth/signup`
+- **Request**:
+  ```json
+  {
+    "email": "test@example.com",
+    "nickname": "홍길동",
+    "password": "password"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+      "code": 1000,
+      "message": "성공",
+      "data": null
+  }
+  ```
+
+### 2. 로그인
+- **POST** `/auth/login`
+- **Request**:
+  ```json
+  {
+    "email": "test@example.com",
+    "password": "password"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+      "code": 1000,
+      "message": "성공",
+      "data": {
+          "accessToken": "...",
+          "refreshToken": "..."
+      }
+  }
+  ```
+
+### 3. 내 정보 요약
+- **GET** `/auth/summary`
+- **Header**: `Authorization: Bearer <token>`
+- **Response**:
+  ```json
+  {
+      "code": 1000,
+      "message": "성공",
+      "data": {
+          "id": 1,
+          "email": "...",
+          "nickname": "..."
+      }
+  }
+  ```
+
+## Domain API (Static Data Only)
 
 ### 1. 사용자 요약 정보 (User Summary)
 - **GET** `/user/summary`
@@ -92,6 +150,44 @@ Base URL: `http://localhost:8080/api`
         "feedback": [ ... ]
       }
       ```
+
+### 5. 뉴스 목록 (News)
+- **GET** `/news`
+    - **응답 (`data`)**: `News[]`
+      ```json
+      [
+        {
+          "id": "1",
+          "title": "...",
+          "press": "...",
+          "time": "09:30"
+        }
+      ]
+      ```
+
+### 6. 매수 (Buy)
+- **POST** `/buy`
+    - **Request Body**:
+      ```json
+      {
+        "stockId": "1",
+        "amount": 10,
+        "price": 70000 // 사용자가 본 가격 (검증용)
+      }
+      ```
+    - **응답 (`data`)**: `boolean` (성공 여부)
+
+### 7. 매도 (Sell)
+- **POST** `/sell`
+    - **Request Body**:
+      ```json
+      {
+        "stockId": "1",
+        "amount": 5,
+        "price": 72000
+      }
+      ```
+    - **응답 (`data`)**: `boolean` (성공 여부)
 
 ---
 
