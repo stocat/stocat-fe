@@ -7,12 +7,13 @@ export const container = style({
   justifyContent: "center",
   padding: "14px 16px",
   marginTop: "16px",
-  backgroundColor: vars.color.grey[100],
   borderRadius: "8px",
-  fontSize: "13px",
-  color: vars.color.grey[700],
+  fontSize: "10px",
+  fontWeight: 600,
+  color: vars.color.grey[900],
   cursor: "pointer",
   transition: "background-color 0.2s",
+  border: `1px solid ${vars.color.grey[300]}`,
 
   ":hover": {
     backgroundColor: vars.color.grey[200],
@@ -22,5 +23,5 @@ export const container = style({
 export const highlight = style({
   fontWeight: 600,
   color: vars.color.grey[900],
-  marginLeft: "8px",
+  marginLeft: "10px",
 });
