@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import type { Stock } from "../../TodaysPick.types";
 import CategoryTag from "../CategoryTag";
 import * as styles from "./StockCard.css";
@@ -23,12 +24,19 @@ function getChangeStyle(percent: number): string {
 }
 
 export default function StockCard({ stock, onFavoriteToggle }: StockCardProps) {
-  const handleFavoriteClick = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/stock/${stock.id}`);
+  };
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     onFavoriteToggle?.(stock.id);
   };
 
   return (
-    <article className={styles.container}>
+    <article className={styles.container} onClick={handleCardClick} style={{ cursor: "pointer" }}>
       {stock.imageUrl ? (
         <img
           src={stock.imageUrl}

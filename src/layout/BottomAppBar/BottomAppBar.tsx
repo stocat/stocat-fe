@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import * as styles from "./BottomAppBar.css";
 
 const navItems = [
@@ -82,7 +82,7 @@ const navItems = [
   },
 ];
 
-export default function BottomAppBar() {
+function NavigationBar() {
   return (
     <nav className={styles.bottomAppBar}>
       {navItems.map((item) => (
@@ -100,4 +100,33 @@ export default function BottomAppBar() {
       ))}
     </nav>
   );
+}
+
+interface TradeBarProps {
+  onSell?: () => void;
+  onBuy?: () => void;
+}
+
+function TradeBar({ onSell, onBuy }: TradeBarProps) {
+  return (
+    <div className={styles.tradeBar}>
+      <button type="button" className={styles.sellButton} onClick={onSell}>
+        판매
+      </button>
+      <button type="button" className={styles.buyButton} onClick={onBuy}>
+        구매
+      </button>
+    </div>
+  );
+}
+
+export default function BottomAppBar() {
+  const location = useLocation();
+  const isStockDetailPage = location.pathname.startsWith("/stock/");
+
+  if (isStockDetailPage) {
+    return <TradeBar />;
+  }
+
+  return <NavigationBar />;
 }

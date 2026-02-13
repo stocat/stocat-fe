@@ -42,3 +42,62 @@ export const navLabel = style({
   fontSize: "11px",
   fontWeight: 500,
 });
+
+export const tradeBar = style({
+  position: "fixed",
+  bottom: 0,
+  left: "50%",
+  transform: "translateX(-50%)",
+  width: "394px",
+  height: "64px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "12px",
+  padding: "0 20px",
+  backgroundColor: "#ffffff",
+  borderTop: `1px solid ${vars.color.grey[200]}`,
+});
+
+export const tradeButton = style({
+  flex: 1,
+  height: "44px",
+  fontSize: "15px",
+  fontWeight: 600,
+  borderRadius: "8px",
+  border: "none",
+  cursor: "pointer",
+  transition: "all 0.2s ease",
+});
+
+export const sellButton = style([
+  tradeButton,
+  {
+    backgroundColor: "#4D7AE5",
+    color: "#ffffff",
+
+    ":hover": {
+      backgroundColor: "#3D6AD5",
+    },
+
+    ":active": {
+      backgroundColor: "#2D5AC5",
+    },
+  },
+]);
+
+export const buyButton = style([
+  tradeButton,
+  {
+    backgroundColor: "#E54D4D",
+    color: "#ffffff",
+
+    ":hover": {
+      backgroundColor: "#D53D3D",
+    },
+
+    ":active": {
+      backgroundColor: "#C52D2D",
+    },
+  },
+]);
