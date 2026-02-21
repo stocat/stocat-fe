@@ -72,32 +72,9 @@ export const tradeButton = style({
 
 export const sellButton = style([
   tradeButton,
-  {
-    backgroundColor: "#4D7AE5",
-    color: "#ffffff",
 
-    ":hover": {
-      backgroundColor: "#3D6AD5",
-    },
-
-    ":active": {
-      backgroundColor: "#2D5AC5",
-    },
-  },
 ]);
 
 export const buyButton = style([
   tradeButton,
-  {
-    backgroundColor: "#E54D4D",
-    color: "#ffffff",
-
-    ":hover": {
-      backgroundColor: "#D53D3D",
-    },
-
-    ":active": {
-      backgroundColor: "#C52D2D",
-    },
-  },
 ]);

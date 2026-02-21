@@ -2,19 +2,57 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "@/shared/styles/vars.css";
 
 export const header = style({
-  height: "80px",
+  height: "70px",
   padding: "0 16px",
   display: "flex",
-  alignItems: "center",
   justifyContent: "space-between",
-  borderBottom: `1px solid ${vars.color.grey[200]}`,
-  backgroundColor: `${vars.color.grey[200]}`,
+  alignItems: "center",
+  borderBottom: `3px solid ${vars.color.grey[100]}`,
+  backgroundColor: "white",
+});
+
+export const leftGroup = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "2px",
+});
+
+export const logo = style({
+  fontSize: "20px",
+  fontWeight: 700,
+  color: vars.color.grey[900],
+  margin: 0,
+});
+
+
+export const indexInfo = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "6px",
+});
+
+export const indexName = style({
+  color: vars.color.grey[900],
+  fontWeight: 400,
+  fontSize: "14px",
+});
+
+export const indexValue = style({
+  color: "red", // 상황에 따라 동적인 변동
+  fontWeight: 400,
+  fontSize: "14px",
+});
+
+export const indexChange = style({
+  color: "red", //상황에 따라 동적으로 변동
+  fontWeight: 400,
+  fontSize: "12px",
 });
 
 export const iconGroup = style({
   display: "flex",
   alignItems: "center",
-  gap: "12px",
+  gap: 0,
 });
 
 export const iconButton = style({
@@ -29,11 +67,4 @@ export const iconButton = style({
   cursor: "pointer",
   borderRadius: "8px",
   color: vars.color.grey[900],
-});
-
-export const logo = style({
-  fontSize: "20px",
-  fontWeight: 700,
-  color: vars.color.blueGreen.normal,
-  margin: 0,
 });
