@@ -7,7 +7,7 @@ export const bottomAppBar = style({
   left: "50%",
   transform: "translateX(-50%)",
   width: "394px",
-  height: "64px",
+  height: "80px",
   display: "flex",
   alignItems: "center",
   justifyContent: "space-around",
