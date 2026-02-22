@@ -15,7 +15,6 @@ function calculatePosition(current: number, low: number, high: number): number {
 }
 
 interface PriceRangeProps {
-  label: string;
   lowLabel: string;
   highLabel: string;
   low: number;
@@ -23,7 +22,7 @@ interface PriceRangeProps {
   current: number;
 }
 
-function PriceRange({ label, lowLabel, highLabel, low, high, current }: PriceRangeProps) {
+function PriceRange({ lowLabel, highLabel, low, high, current }: PriceRangeProps) {
   const position = calculatePosition(current, low, high);
 
   return (
@@ -59,7 +58,6 @@ export default function PriceInfo({ priceInfo }: PriceInfoProps) {
       </div>
 
       <PriceRange
-        label="1일"
         lowLabel="1일 최저가"
         highLabel="1일 최고가"
         low={priceInfo.dailyLow}
@@ -68,7 +66,6 @@ export default function PriceInfo({ priceInfo }: PriceInfoProps) {
       />
 
       <PriceRange
-        label="1년"
         lowLabel="1년 최저가"
         highLabel="1년 최고가"
         low={priceInfo.yearlyLow}

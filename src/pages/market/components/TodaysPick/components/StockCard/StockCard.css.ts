@@ -4,8 +4,8 @@ import { vars } from "@/shared/styles/vars.css";
 export const container = style({
   display: "flex",
   alignItems: "center",
-  gap: "12px",
-  padding: "12px 0",
+  gap: "16px",
+  padding: "16px 10px",
   borderBottom: `1px solid ${vars.color.grey[100]}`,
 
   ":last-child": {
@@ -14,9 +14,9 @@ export const container = style({
 });
 
 export const image = style({
-  width: "56px",
-  height: "56px",
-  borderRadius: "8px",
+  width: "46px",
+  height: "46px",
+  borderRadius: "50%",
   backgroundColor: vars.color.grey[200],
   flexShrink: 0,
   objectFit: "cover",
@@ -25,38 +25,38 @@ export const image = style({
 export const imagePlaceholder = style([
   image,
   {
+    backgroundColor: "#1A2B4A",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    position: "relative",
-
-    "::before": {
-      content: '""',
-      position: "absolute",
-      width: "100%",
-      height: "100%",
-      background: `linear-gradient(to bottom right, transparent calc(50% - 1px), ${vars.color.grey[400]} calc(50% - 1px), ${vars.color.grey[400]} calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(to top right, transparent calc(50% - 1px), ${vars.color.grey[400]} calc(50% - 1px), ${vars.color.grey[400]} calc(50% + 1px), transparent calc(50% + 1px))`,
-    },
   },
 ]);
+
+export const imagePlaceholderText = style({
+  fontSize: "13px",
+  fontWeight: 700,
+  color: "#ffffff",
+  userSelect: "none",
+  letterSpacing: "-0.5px",
+});
 
 export const content = style({
   flex: 1,
   minWidth: 0,
 });
 
-export const categories = style({
+export const nameRow = style({
   display: "flex",
   alignItems: "center",
-  gap: "4px",
+  gap: "8px",
   marginBottom: "4px",
 });
 
 export const name = style({
   fontSize: "14px",
-  fontWeight: 600,
+  fontWeight: 700,
   color: vars.color.grey[900],
-  marginBottom: "2px",
+  flexShrink: 0,
 });
 
 export const priceRow = style({
@@ -66,26 +66,26 @@ export const priceRow = style({
 });
 
 export const price = style({
-  fontSize: "13px",
+  fontSize: "14px",
   fontWeight: 500,
   color: vars.color.grey[800],
 });
 
 export const changePositive = style({
-  fontSize: "13px",
-  fontWeight: 500,
+  fontSize: "14px",
+  fontWeight: 600,
   color: "#E54D4D",
 });
 
 export const changeNegative = style({
-  fontSize: "13px",
-  fontWeight: 500,
+  fontSize: "14px",
+  fontWeight: 600,
   color: "#4D7AE5",
 });
 
 export const changeNeutral = style({
-  fontSize: "13px",
-  fontWeight: 500,
+  fontSize: "14px",
+  fontWeight: 600,
   color: vars.color.grey[500],
 });
 

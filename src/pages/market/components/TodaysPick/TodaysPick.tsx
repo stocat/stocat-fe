@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { TabNavigation, StockCard, BottomCTA } from "./components";
+import { TabNavigation, StockCard} from "./components";
 import { TABS, MOCK_STOCKS } from "./TodaysPick.mock";
 import type { TabType, Stock } from "./TodaysPick.types";
 import * as styles from "./TodaysPick.css";
 
 export default function TodaysPick() {
-  const [activeTab, setActiveTab] = useState<TabType>("tradingValue");
+  const [activeTab, setActiveTab] = useState<TabType>("popularity");
   const [stocks, setStocks] = useState<Stock[]>(MOCK_STOCKS);
 
   const handleTabChange = (tab: TabType) => {
@@ -22,9 +22,6 @@ export default function TodaysPick() {
     );
   };
 
-  const handleCTAClick = () => {
-    // Navigate to interested companies page
-  };
 
   return (
     <section className={styles.container}>
@@ -43,7 +40,6 @@ export default function TodaysPick() {
           />
         ))}
       </div>
-      <BottomCTA onClick={handleCTAClick} />
     </section>
   );
 }
