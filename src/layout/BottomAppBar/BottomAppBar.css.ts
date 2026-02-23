@@ -35,7 +35,7 @@ export const navItem = style({
 });
 
 export const navItemActive = style({
-  color: vars.color.blueGreen.normal,
+  color: vars.color.grey[900],
 });
 
 export const navLabel = style({
