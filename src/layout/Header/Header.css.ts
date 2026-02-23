@@ -38,13 +38,11 @@ export const indexName = style({
 });
 
 export const indexValue = style({
-  color: "red", // 상황에 따라 동적인 변동
   fontWeight: 400,
   fontSize: "14px",
 });
 
 export const indexChange = style({
-  color: "red", //상황에 따라 동적으로 변동
   fontWeight: 400,
   fontSize: "12px",
 });

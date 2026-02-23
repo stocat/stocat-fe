@@ -1,84 +1,42 @@
-import { useState } from "react";
+import { Fragment } from "react";
 import * as styles from "./MarketIndexSection.css.ts";
 import IndexItem from "./IndexItem";
-
-type Tab = "한국" | "미국" | "CRYPTO";
-
-const TABS: Tab[] = ["한국", "미국", "CRYPTO"];
-
-type IndexData = {
-    name: string;
-    value: string;
-    change: string;
-};
-
-const INDEX_DATA: Record<Tab, IndexData[]> = {
-    한국: [
-        { name: "코스피", value: "4,220.56", change: "+2.2%" },
-        { name: "코스닥", value: "1,121.87", change: "+0.6%" },
-        { name: "나스닥", value: "23,066.46", change: "-0.1%" },
-        { name: "다우존스", value: "5,220.56", change: "+0.2%" },
-        { name: "S&P 500", value: "6,881.31", change: "+0.5%" },
-        { name: "환율", value: "1,452.38", change: "+0.6%" },
-    ],
-    미국: [
-        { name: "나스닥", value: "23,066.46", change: "-0.1%" },
-        { name: "다우존스", value: "5,220.56", change: "+0.2%" },
-        { name: "S&P 500", value: "6,881.31", change: "+0.5%" },
-        { name: "러셀2000", value: "2,285.12", change: "+0.3%" },
-        { name: "VIX", value: "14.82", change: "-1.2%" },
-        { name: "환율", value: "1,452.38", change: "+0.6%" },
-    ],
-    CRYPTO: [
-        { name: "BTC", value: "97,450.00", change: "+1.5%" },
-        { name: "ETH", value: "3,220.00", change: "+2.1%" },
-        { name: "XRP", value: "0.58", change: "-0.8%" },
-        { name: "SOL", value: "185.30", change: "+3.2%" },
-        { name: "BNB", value: "412.70", change: "+0.9%" },
-        { name: "DOGE", value: "0.142", change: "-1.4%" },
-    ],
-};
+import { useMarketIndex } from "./useMarketIndex";
 
 export default function MarketIndexSection() {
-    const [activeTab, setActiveTab] = useState<Tab>("한국");
-    const data = INDEX_DATA[activeTab];
+  const { tabs, activeTab, indices, onTabChange } = useMarketIndex();
 
-    return (
-        <section className={styles.container}>
+  const rows = [indices.slice(0, 3), indices.slice(3, 6)];
 
-            <div className={styles.tab_row}>
-                {TABS.map((tab) => (
-                    <button
-                        key={tab}
-                        className={styles.tab_button}
-                        data-active={activeTab === tab ? "true" : undefined}
-                        onClick={() => setActiveTab(tab)}
-                    >
-                        {tab}
-                    </button>
-                ))}
-            </div>
+  return (
+    <section className={styles.container}>
+      <div className={styles.tab_row}>
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            className={styles.tab_button}
+            data-active={activeTab === tab ? "true" : undefined}
+            onClick={() => onTabChange(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
 
-            <div className={styles.h_divider} />
+      <div className={styles.h_divider} />
 
-            <div className={styles.index_grid}>
-                <div className={styles.index_row}>
-                    <IndexItem {...data[0]} />
-                    <div className={styles.v_divider} />
-                    <IndexItem {...data[1]} />
-                    <div className={styles.v_divider} />
-                    <IndexItem {...data[2]} />
-                </div>
-
-                <div className={styles.index_row}>
-                    <IndexItem {...data[3]} />
-                    <div className={styles.v_divider} />
-                    <IndexItem {...data[4]} />
-                    <div className={styles.v_divider} />
-                    <IndexItem {...data[5]} />
-                </div>
-            </div>
-
-        </section>
-    );
+      <div className={styles.index_grid}>
+        {rows.map((row, rowIdx) => (
+          <div key={rowIdx} className={styles.index_row}>
+            {row.map((item, i) => (
+              <Fragment key={item.name}>
+                {i > 0 && <div className={styles.v_divider} />}
+                <IndexItem {...item} />
+              </Fragment>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 }
