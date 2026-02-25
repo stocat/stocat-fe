@@ -11,7 +11,7 @@ export const viewport = style({
 
 export const mobileFrame = style({
   width: "394px",
-  height: "auto",
+  height: "100dvh",
   backgroundColor: "white",
   overflow: "hidden",
   display: "flex",
