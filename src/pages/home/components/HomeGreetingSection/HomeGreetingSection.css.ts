@@ -28,7 +28,7 @@ export const textArea = style({
 export const title = style({
   width: "100%",
   fontSize: 18,
-  fontWeight: 700,
+  fontWeight: 600,
   lineHeight: "150%",
   color: vars.color.grey[900],
   display: "flex",
@@ -43,6 +43,6 @@ export const subTitle = style({
   alignItems: "left",
   background: "#ffffff",
   fontSize: 12,
-  fontWeight: 500,
+  fontWeight: 400,
   color: vars.color.grey[400],
 });
