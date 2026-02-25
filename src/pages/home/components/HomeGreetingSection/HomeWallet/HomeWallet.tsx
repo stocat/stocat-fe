@@ -12,7 +12,11 @@ export default function HomeWallet() {
       <div className={styles.title}>
         <button className={styles.ctaMyWallet}>
           <span>나의 지갑</span>
-          <VectorRight width={4} height={8} />
+          <VectorRight
+            width={6}
+            height={12}
+            className={styles.ctaMyWalletVector}
+          />
         </button>
         <div className={styles.currentTime}>20:42 기준</div>
       </div>

@@ -32,6 +32,10 @@ globalStyle(`${ctaMyWallet} > span`, {
   color: vars.color.grey[800],
 });
 
+export const ctaMyWalletVector = style({
+  paddingBottom: 2.5,
+});
+
 export const currentTime = style({
   width: "fit-content",
   fontSize: 12,
