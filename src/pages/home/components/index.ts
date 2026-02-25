@@ -1,1 +1,1 @@
-export { default as HomeBanner } from "./HomeBanner/HomeBanner";
+export { default as HomeBanner } from "./HomeGreetingSection/HomeBanner/HomeBanner";

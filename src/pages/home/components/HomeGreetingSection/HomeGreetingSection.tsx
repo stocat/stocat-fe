@@ -1,6 +1,7 @@
 import * as styles from "./HomeGreetingSection.css";
 
-import HomeBanner from "../HomeBanner/HomeBanner";
+import HomeBanner from "./HomeBanner/HomeBanner";
+import HomeWallet from "./HomeWallet/HomeWallet";
 
 // 임시 데이터
 const MOCK_NAME = "강희수";
@@ -17,6 +18,7 @@ export default function HomeGreetingSection() {
           {MOCK_HOUR}시간 {MOCK_MINUTIES}분 뒤면 종목이 소멸돼요!
         </span>
       </div>
+      <HomeWallet />
     </section>
   );
 }
