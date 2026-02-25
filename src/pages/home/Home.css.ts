@@ -4,7 +4,7 @@ import { vars } from "@/shared/styles/vars.css";
 export const container = style({
   display: "flex",
   flexDirection: "column",
-  gap: "16px",
+  gap: 8,
 });
 
 export const bar = style({

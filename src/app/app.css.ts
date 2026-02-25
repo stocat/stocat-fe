@@ -12,14 +12,13 @@ export const viewport = style({
 export const mobileFrame = style({
   width: "394px",
   height: "100dvh",
-  backgroundColor: "#F6F6F6",
+  backgroundColor: "#",
   overflow: "hidden",
   display: "flex",
   flexDirection: "column",
 });
 
 export const content = style({
-  flex: 1,
   overflowY: "auto",
   paddingBottom: "64px",
 });
