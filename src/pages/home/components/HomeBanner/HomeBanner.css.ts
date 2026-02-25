@@ -10,7 +10,7 @@ export const container = style({
   flexDirection: "column",
   alignItems: "center",
   overflow: "hidden",
-  backgroundColor: vars.color.blueGreen.light,
+  background: "linear-gradient(181deg, #F7FAFF 0%, #FFFFFF 15%, #C6EDFF 100%)",
   minHeight: 120,
 });
 
@@ -49,14 +49,15 @@ export const circleTopRight = style({
   height: 330,
   borderRadius: "50%",
   bottom: 0,
-  right: 0,
+  left: 50,
   background:
     "radial-gradient(circle, rgba(255,255,255, 1) 0%, rgba(255,255,255, 0) 48%, rgba(255,255,255, 0) 60%, rgba(255,255,255, 1) 100%)",
+  maskImage: "radial-gradient(circle, black 70%, transparent 80%)",
 });
 
 export const circleBottomLeft = style({
   position: "absolute",
-  zIndex: 1,
+  zIndex: 2,
   width: 290,
   height: 290,
   borderRadius: "50%",
@@ -65,16 +66,18 @@ export const circleBottomLeft = style({
   opacity: 0.3,
   background:
     "radial-gradient(circle, #C3FBFF 0%, #ECF6FF 38%, #4999FC 71%, #0059C7 100%)",
+  maskImage: "radial-gradient(circle, black 40%, transparent 80%)",
 });
 
 export const circleBottomRight = style({
   position: "absolute",
-  zIndex: 2,
+  zIndex: 1,
   width: 196,
   height: 196,
   borderRadius: "50%",
   top: 60,
   right: -40,
-  opacity: 0.5,
+  opacity: 0.2,
   background: "radial-gradient(circle, #B2FFF9 0%, #00AB91 68%, #007379 100%)",
+  maskImage: "radial-gradient(circle, black 40%, transparent 80%)",
 });
