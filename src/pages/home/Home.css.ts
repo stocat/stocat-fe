@@ -5,7 +5,6 @@ export const container = style({
   display: "flex",
   flexDirection: "column",
   gap: "16px",
-  padding: "16px",
 });
 
 export const bar = style({

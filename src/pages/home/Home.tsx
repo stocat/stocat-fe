@@ -1,10 +1,11 @@
 import * as styles from "./Home.css";
-import HomeBanner from "./components/HomeBanner/HomeBanner";
+
+import HomeGreetingSection from "./components/HomeGreetingSection/HomeGreetingSection";
 
 export default function Home() {
   return (
     <div className={styles.container}>
-      <HomeBanner />
+      <HomeGreetingSection />
     </div>
   );
 }
