@@ -1,5 +1,6 @@
 import { AiSparkle, CharacterSnovy } from "@/assets/icons/components";
 import * as styles from "./StockAnalysis.css";
+import { MOCK_ANALYSIS } from "../HomeStockSection.mock";
 
 export default function StockAnalysis() {
   return (
@@ -10,10 +11,7 @@ export default function StockAnalysis() {
           <AiSparkle width={12} height={12} className={styles.sparkleIcon} />
           <span className={styles.title}>스노비의 분석 요약</span>
         </div>
-        <div className={styles.analysisContent}>
-          수희님은 최근 여행 업종 비중이 확대됐어요 분할 접근이 부담을 줄일 수
-          있어요.
-        </div>
+        <div className={styles.analysisContent}>{MOCK_ANALYSIS}</div>
       </div>
     </div>
   );

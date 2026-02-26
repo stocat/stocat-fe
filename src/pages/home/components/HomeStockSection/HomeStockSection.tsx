@@ -1,5 +1,6 @@
 import { useState } from "react";
 import * as styles from "./HomeStockSection.css";
+import { MOCK_BALANCE } from "./HomeStockSection.mock";
 
 import { VectorRight } from "@/assets/icons/components";
 
@@ -23,8 +24,10 @@ export default function HomeStockSection() {
         />
       </button>
       <div className={styles.balanceContainer}>
-        <span className={styles.currentBalance}>49,350 원</span>
-        <span className={styles.currentVariation}>+1,800원 (3.7%)</span>
+        <span className={styles.currentBalance}>{MOCK_BALANCE.total}</span>
+        <span className={styles.currentVariation}>
+          {MOCK_BALANCE.variation}
+        </span>
       </div>
       <StockList
         filters={FILTERS}

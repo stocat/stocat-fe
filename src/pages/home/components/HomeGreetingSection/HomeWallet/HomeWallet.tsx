@@ -1,10 +1,6 @@
 import { VectorRight } from "@/assets/icons/components";
 import * as styles from "./HomeWallet.css";
-
-const MOCK_DATA = {
-  MOCK_WON: "505,000",
-  MOCK_DOLLAR: "100",
-};
+import { MOCK_WALLET } from "../HomeGreetingSection.mock";
 
 export default function HomeWallet() {
   return (
@@ -18,16 +14,16 @@ export default function HomeWallet() {
             className={styles.ctaMyWalletVector}
           />
         </button>
-        <div className={styles.currentTime}>20:42 기준</div>
+        <div className={styles.currentTime}>{MOCK_WALLET.updatedAt} 기준</div>
       </div>
       <div className={styles.buttonWrapper}>
         <div className={styles.button}>
           <span className={styles.currency}>원화</span>
-          <span className={styles.balance}>{MOCK_DATA.MOCK_WON} 원</span>
+          <span className={styles.balance}>{MOCK_WALLET.won} 원</span>
         </div>
         <div className={styles.button}>
           <span className={styles.currency}>달러</span>
-          <span className={styles.balance}>$ {MOCK_DATA.MOCK_DOLLAR}</span>
+          <span className={styles.balance}>$ {MOCK_WALLET.dollar}</span>
         </div>
       </div>
     </section>

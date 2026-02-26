@@ -16,36 +16,7 @@ import {
 import SortableStockItem from "./SortableStockItem";
 import MyStockContent from "./MyStockContent";
 import * as styles from "./StockList.css";
-
-const INITIAL_STOCKS = [
-  {
-    id: "하나투어",
-    name: "하나투어",
-    averagePrice: "1주 47,550원",
-    currentPrice: "49,350원",
-    currentPriceRaw: 49350,
-    evaluationRaw: 49350,
-    changeRate: 5.0,
-  },
-  {
-    id: "쿠팡",
-    name: "쿠팡",
-    averagePrice: "1주 28,198원",
-    currentPrice: "28,198원",
-    currentPriceRaw: 28198,
-    evaluationRaw: 28198,
-    changeRate: 8.2,
-  },
-  {
-    id: "테슬라",
-    name: "테슬라",
-    averagePrice: "1주 512,001원",
-    currentPrice: "588,481원",
-    currentPriceRaw: 588481,
-    evaluationRaw: 588481,
-    changeRate: -0.8,
-  },
-];
+import { MOCK_STOCKS } from "../HomeStockSection.mock";
 
 interface StockListProps<T extends string> {
   filters: readonly T[];
@@ -58,7 +29,7 @@ export default function StockList<T extends string>({
   selectedFilter,
   onFilterChange,
 }: StockListProps<T>) {
-  const [stocks, setStocks] = useState(INITIAL_STOCKS);
+  const [stocks, setStocks] = useState(MOCK_STOCKS);
   const isCustomOrder = selectedFilter === "직접 설정한 순";
 
   const sensors = useSensors(
