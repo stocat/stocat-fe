@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { themeClass } from "@/shared/styles/vars.css";
 import * as styles from "./app.css";
 import { Outlet } from "react-router-dom";
@@ -10,7 +11,9 @@ export default function App() {
       <div className={styles.mobileFrame}>
         <Header />
         <div className={styles.content}>
-          <Outlet />
+          <Suspense>
+            <Outlet />
+          </Suspense>
         </div>
         <BottomAppBar />
       </div>
