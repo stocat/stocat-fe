@@ -38,3 +38,9 @@ globalStyle(`${badgeList} > button[aria-selected="true"]`, {
   backgroundColor: "#F6F6F6",
   border: "none",
 });
+
+export const contentList = style({
+  height: "fit-content",
+  maxHeight: 260,
+  overflowY: "auto",
+});
