@@ -1,16 +1,17 @@
+import MyStockContent from "./MyStockContent";
 import * as styles from "./StockList.css";
 
-interface StockListProps {
-  filters: readonly string[];
-  selectedFilter: string;
-  onFilterChange: (filter: string) => void;
+interface StockListProps<T extends string> {
+  filters: readonly T[];
+  selectedFilter: T;
+  onFilterChange: (filter: T) => void;
 }
 
-export default function StockList({
+export default function StockList<T extends string>({
   filters,
   selectedFilter,
   onFilterChange,
-}: StockListProps) {
+}: StockListProps<T>) {
   return (
     <div className={styles.container}>
       <div className={styles.badgeList}>
@@ -24,7 +25,9 @@ export default function StockList({
           </button>
         ))}
       </div>
-      <div>내 종목 List</div>
+      <div>
+        <MyStockContent />
+      </div>
     </div>
   );
 }
