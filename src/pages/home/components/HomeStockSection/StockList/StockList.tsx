@@ -1,41 +1,48 @@
+import { useMemo, useState } from "react";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import SortableStockItem from "./SortableStockItem";
 import MyStockContent from "./MyStockContent";
 import * as styles from "./StockList.css";
 
-const MOCK_STOCKS = [
+const INITIAL_STOCKS = [
   {
+    id: "하나투어",
     name: "하나투어",
     averagePrice: "1주 47,550원",
     currentPrice: "49,350원",
+    currentPriceRaw: 49350,
+    evaluationRaw: 49350,
     changeRate: 5.0,
   },
   {
+    id: "쿠팡",
     name: "쿠팡",
     averagePrice: "1주 28,198원",
     currentPrice: "28,198원",
+    currentPriceRaw: 28198,
+    evaluationRaw: 28198,
     changeRate: 8.2,
   },
   {
+    id: "테슬라",
     name: "테슬라",
-    averagePrice: "1주 588,4810원",
+    averagePrice: "1주 512,001원",
     currentPrice: "588,481원",
-    changeRate: -0.8,
-  },
-  {
-    name: "하나투어",
-    averagePrice: "1주 47,550원",
-    currentPrice: "49,350원",
-    changeRate: 5.0,
-  },
-  {
-    name: "쿠팡",
-    averagePrice: "1주 28,198원",
-    currentPrice: "28,198원",
-    changeRate: 8.2,
-  },
-  {
-    name: "테슬라",
-    averagePrice: "1주 588,4810원",
-    currentPrice: "588,481원",
+    currentPriceRaw: 588481,
+    evaluationRaw: 588481,
     changeRate: -0.8,
   },
 ];
@@ -51,6 +58,40 @@ export default function StockList<T extends string>({
   selectedFilter,
   onFilterChange,
 }: StockListProps<T>) {
+  const [stocks, setStocks] = useState(INITIAL_STOCKS);
+  const isCustomOrder = selectedFilter === "직접 설정한 순";
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 200, tolerance: 5 },
+    }),
+  );
+
+  const displayStocks = useMemo(() => {
+    if (isCustomOrder) return stocks;
+    const sorted = [...stocks];
+    switch (selectedFilter) {
+      case "현재가":
+        return sorted.sort((a, b) => b.currentPriceRaw - a.currentPriceRaw);
+      case "평가금액":
+        return sorted.sort((a, b) => b.evaluationRaw - a.evaluationRaw);
+      default:
+        return sorted;
+    }
+  }, [stocks, selectedFilter, isCustomOrder]);
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    setStocks((prev) => {
+      const oldIndex = prev.findIndex((s) => s.id === active.id);
+      const newIndex = prev.findIndex((s) => s.id === over.id);
+      return arrayMove(prev, oldIndex, newIndex);
+    });
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.badgeList}>
@@ -65,9 +106,26 @@ export default function StockList<T extends string>({
         ))}
       </div>
       <div className={styles.contentList}>
-        {MOCK_STOCKS.map((stock) => (
-          <MyStockContent key={stock.name} {...stock} />
-        ))}
+        {isCustomOrder ? (
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={displayStocks.map((s) => s.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              {displayStocks.map((stock) => (
+                <SortableStockItem key={stock.id} {...stock} />
+              ))}
+            </SortableContext>
+          </DndContext>
+        ) : (
+          displayStocks.map((stock) => (
+            <MyStockContent key={stock.id} {...stock} />
+          ))
+        )}
       </div>
     </div>
   );
