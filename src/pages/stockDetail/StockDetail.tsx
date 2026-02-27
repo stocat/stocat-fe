@@ -51,7 +51,9 @@ export default function StockDetail() {
   const displayName = navStock?.name ?? stock.name;
   const displayPrice = navStock?.price ?? stock.price;
   const displayChangePercent = navStock?.changePercent ?? stock.changePercent;
-  const displayCategories = navStock?.categories ?? [{ label: stock.industry, type: "industry" as const }];
+  const displayCategories = navStock?.categories ?? [
+    { label: stock.industry, type: "industry" as const },
+  ];
 
   return (
     <div className={styles.container}>

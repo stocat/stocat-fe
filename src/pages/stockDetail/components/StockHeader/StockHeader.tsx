@@ -10,21 +10,33 @@ interface StockHeaderProps {
   isPositive: boolean;
 }
 
-export default function StockHeader({ categories, name, value, change, isPositive }: StockHeaderProps) {
+export default function StockHeader({
+  categories,
+  name,
+  value,
+  change,
+  isPositive,
+}: StockHeaderProps) {
   const [showWon, setShowWon] = useState(true);
 
   return (
     <header className={styles.container}>
       <div className={styles.tagRow}>
         {categories.map((cat, i) => (
-          <span key={i} className={styles.tag}>{cat.label}</span>
+          <span key={i} className={styles.tag}>
+            {cat.label}
+          </span>
         ))}
       </div>
       <h1 className={styles.stockName}>{name}</h1>
       <div className={styles.priceRow}>
         <div className={styles.priceGroup}>
           <span className={styles.price}>{value}</span>
-          <span className={isPositive ? styles.changePositive : styles.changeNegative}>
+          <span
+            className={
+              isPositive ? styles.changePositive : styles.changeNegative
+            }
+          >
             {change}
           </span>
         </div>

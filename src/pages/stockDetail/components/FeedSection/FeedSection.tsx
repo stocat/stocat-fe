@@ -7,16 +7,30 @@ interface FeedPost {
 }
 
 const mockPosts: FeedPost[] = [
-  { id: "f1", nickname: "투자고수", text: "반도체 사이클 바닥 찍고 올라가는 중인 것 같아요" },
-  { id: "f2", nickname: "주식새싹", text: "HBM 수요가 계속 늘어날 것 같아서 장기 보유 중이에요" },
-  { id: "f3", nickname: "코스피왕", text: "외국인 매수세가 다시 들어오고 있네요 긍정적!" },
+  {
+    id: "f1",
+    nickname: "투자고수",
+    text: "반도체 사이클 바닥 찍고 올라가는 중인 것 같아요",
+  },
+  {
+    id: "f2",
+    nickname: "주식새싹",
+    text: "HBM 수요가 계속 늘어날 것 같아서 장기 보유 중이에요",
+  },
+  {
+    id: "f3",
+    nickname: "코스피왕",
+    text: "외국인 매수세가 다시 들어오고 있네요 긍정적!",
+  },
 ];
 
 interface FeedSectionProps {
   stockName: string;
 }
 
-export default function FeedSection({ stockName: _stockName }: FeedSectionProps) {
+export default function FeedSection({
+  stockName: _stockName,
+}: FeedSectionProps) {
   return (
     <section className={styles.container}>
       <div className={styles.header}>

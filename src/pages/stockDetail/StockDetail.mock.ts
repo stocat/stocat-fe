@@ -33,13 +33,20 @@ export const mockStockDetail: StockDetailData = {
     lastUpdated: "20:00 기준",
   },
   influenceReasons: [
-    { id: "r1", text: "세계 최초로 HBM4 양산 출하에 성공해 AI 메모리 시장 주도권 기대가 커졌어요" },
-    { id: "r2", text: "엔비디아등 글로벌 고객사에 공급하지 않으며 안정적인 흐름을 유지했기 때문이에요" },
+    {
+      id: "r1",
+      text: "세계 최초로 HBM4 양산 출하에 성공해 AI 메모리 시장 주도권 기대가 커졌어요",
+    },
+    {
+      id: "r2",
+      text: "엔비디아등 글로벌 고객사에 공급하지 않으며 안정적인 흐름을 유지했기 때문이에요",
+    },
   ],
   industryNews: [
     {
       id: "1",
-      title: "(요약) 미국의 반도체 수출 규제 강화로 국내 반도체 업종 전반의 변동성 증가",
+      title:
+        "(요약) 미국의 반도체 수출 규제 강화로 국내 반도체 업종 전반의 변동성 증가",
       timestamp: "시간",
       isHighlighted: true,
     },
@@ -48,7 +55,8 @@ export const mockStockDetail: StockDetailData = {
     { id: "4", title: "(실제 뉴스 헤드라인)", timestamp: "시간" },
     {
       id: "5",
-      title: "(요약) 미국의 반도체 수출 규제 강화로 국내 반도체 업종 전반의 변동성 증가",
+      title:
+        "(요약) 미국의 반도체 수출 규제 강화로 국내 반도체 업종 전반의 변동성 증가",
       timestamp: "시간",
       isHighlighted: true,
     },
