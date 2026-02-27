@@ -8,7 +8,7 @@ export const container = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  background: "#ffffff",
+  background: vars.color.role.background,
   paddingTop: 24,
   paddingBottom: 24,
   paddingLeft: 16,
@@ -22,7 +22,7 @@ export const textArea = style({
   flexDirection: "column",
   alignItems: "left",
   gap: 4,
-  background: "#ffffff",
+  background: vars.color.role.background,
 });
 
 export const title = style({
@@ -30,7 +30,7 @@ export const title = style({
   fontSize: 18,
   fontWeight: 600,
   lineHeight: "150%",
-  color: vars.color.grey[900],
+  color: vars.color.role.text,
   display: "flex",
   flexDirection: "column",
   alignItems: "left",
@@ -41,8 +41,7 @@ export const subTitle = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "left",
-  background: "#ffffff",
-  fontSize: 12,
-  fontWeight: 400,
-  color: vars.color.grey[400],
+  background: vars.color.role.background,
+  ...vars.typography.caption1,
+  color: vars.color.role.grey,
 });

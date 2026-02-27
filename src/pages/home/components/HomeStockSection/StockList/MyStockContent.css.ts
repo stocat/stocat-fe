@@ -13,7 +13,7 @@ export const container = style({
 
   borderTopWidth: 1,
   borderTopStyle: "solid",
-  borderTopColor: "#F6F6F6",
+  borderTopColor: vars.color.role.background2,
 });
 
 export const corpInfoWrapper = style({
@@ -39,15 +39,13 @@ export const corpInfoTitleWrapper = style({
 });
 
 export const corpInfoTitle = style({
-  fontSize: 14,
-  fontWeight: 700,
-  color: vars.color.grey[900],
+  ...vars.typography.body3,
+  color: vars.color.role.text,
 });
 
 export const averagePrice = style({
-  fontSize: 14,
-  fontWeight: 500,
-  color: vars.color.grey[800],
+  ...vars.typography.body4,
+  color: vars.color.role.subtext,
 });
 
 export const priceWrapper = style({
@@ -60,19 +58,16 @@ export const priceWrapper = style({
 });
 
 export const currentPrice = style({
-  fontSize: 14,
-  fontWeight: 700,
-  color: vars.color.grey[900],
+  ...vars.typography.body3,
+  color: vars.color.role.text,
 });
 
 export const increase = style({
-  fontSize: 14,
-  fontWeight: 500,
-  color: "#FB2C36",
+  ...vars.typography.body4,
+  color: "#FF383C",
 });
 
 export const decrease = style({
-  fontSize: 14,
-  fontWeight: 500,
-  color: "#0088FF",
+  ...vars.typography.body4,
+  color: "#2E7BF6",
 });

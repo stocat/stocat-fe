@@ -10,7 +10,7 @@ export const container = style({
   flexDirection: "column",
   alignItems: "center",
   overflow: "hidden",
-  background: "linear-gradient(181deg, #F7FAFF 0%, #FFFFFF 15%, #C6EDFF 100%)",
+  background: `linear-gradient(181deg, #F7FAFF 0%, ${vars.color.role.background} 15%, #C6EDFF 100%)`,
   minHeight: 120,
 });
 
@@ -35,9 +35,7 @@ export const label = style({
 
 export const title = style({
   margin: 0,
-  fontSize: 16,
-  fontWeight: 700,
-  lineHeight: "150%",
+  ...vars.typography.body1,
   textAlign: "center",
   color: "#303030",
 });

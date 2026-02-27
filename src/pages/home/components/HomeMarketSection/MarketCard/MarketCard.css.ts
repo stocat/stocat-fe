@@ -70,10 +70,8 @@ export const nameRow = styleVariants({
 });
 
 export const name = style({
-  fontSize: 14,
-  fontWeight: 700,
-  color: vars.color.grey[900],
-  lineHeight: "150%",
+  ...vars.typography.body3,
+  color: vars.color.role.text,
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
@@ -111,6 +109,6 @@ export const changeRate = style({
 export const price = style({
   fontSize: 12,
   fontWeight: 700,
-  color: vars.color.grey[800],
+  color: vars.color.role.subtext,
   lineHeight: 1.5,
 });
