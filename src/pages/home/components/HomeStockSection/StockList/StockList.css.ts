@@ -26,16 +26,16 @@ globalStyle(`${badgeList} > button`, {
   height: 30,
   fontSize: 12,
   fontWeight: 700,
-  color: vars.color.grey[800],
+  color: vars.color.role.subtext,
 
   borderRadius: 100,
   borderWidth: 1,
   borderStyle: "solid",
-  borderColor: vars.color.grey[100],
+  borderColor: vars.color.role.line,
 });
 
 globalStyle(`${badgeList} > button[aria-selected="true"]`, {
-  backgroundColor: "#F6F6F6",
+  backgroundColor: vars.color.role.background2,
   border: "none",
 });
 
