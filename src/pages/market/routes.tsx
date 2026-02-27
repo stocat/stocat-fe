@@ -1,5 +1,7 @@
+import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
-import Market from "./Market";
+
+const Market = lazy(() => import("./Market"));
 
 export const marketRoutes: RouteObject[] = [
   {

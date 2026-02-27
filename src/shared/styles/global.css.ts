@@ -9,4 +9,12 @@ globalStyle("html, body", {
   padding: 0,
 });
 
-globalStyle("button", { cursor: "pointer" });
+globalStyle("button", {
+  cursor: "pointer",
+  border: "none",
+  background: "none",
+  padding: 0,
+  margin: 0,
+  font: "inherit",
+  color: "inherit",
+});

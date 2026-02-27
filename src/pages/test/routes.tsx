@@ -1,5 +1,7 @@
+import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
-import ColorTestPage from "./ColorTestPage";
+
+const ColorTestPage = lazy(() => import("./ColorTestPage"));
 
 export const testRoutes: RouteObject[] = [
   {
