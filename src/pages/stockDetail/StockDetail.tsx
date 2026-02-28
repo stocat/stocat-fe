@@ -4,15 +4,17 @@ import * as styles from "./StockDetail.css";
 import type { TabType, PeriodType } from "./StockDetail.types";
 import { tabs, periods, getStockById } from "./StockDetail.mock";
 
-import { StockHeader } from "./components/StockHeader";
-import { TabNav } from "./components/TabNav";
-import { PeriodSelector } from "./components/PeriodSelector";
-import { ChartArea } from "./components/ChartArea";
-import { PriceInfo } from "./components/PriceInfo";
-import { CategoryTags } from "./components/CategoryTags";
-import { FinancialSummary } from "./components/FinancialSummary";
-import { NewsSection } from "./components/NewsSection";
-import { FeedSection } from "./components/FeedSection";
+import {
+  StockHeader,
+  TabNav,
+  PeriodSelector,
+  ChartArea,
+  PriceInfo,
+  CategoryTags,
+  FinancialSummary,
+  NewsSection,
+  FeedSection,
+} from "./components";
 
 export default function StockDetail() {
   const { stockId } = useParams<{ stockId: string }>();
