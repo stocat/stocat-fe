@@ -11,7 +11,7 @@ interface UseIndexInfoResult {
 export function useIndexInfo(): UseIndexInfoResult {
   const [data, setData] = useState<IndexInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [error] = useState<Error | null>(null);
 
   useEffect(() => {
     // api 호출시 주석 제거

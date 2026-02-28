@@ -19,7 +19,6 @@ export const mobileFrame = style({
 });
 
 export const content = style({
-  flex: 1,
   overflowY: "auto",
   paddingBottom: "64px",
 });
