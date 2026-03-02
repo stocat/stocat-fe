@@ -5,7 +5,7 @@ const base = style({
   flexShrink: 0,
   borderRadius: 16,
   overflow: "hidden",
-  backgroundColor: vars.color.grey[50],
+  backgroundColor: vars.color.role.background2,
 });
 
 export const layout = styleVariants({
@@ -39,7 +39,7 @@ export const logo = style({
   width: 40,
   height: 40,
   borderRadius: "50%",
-  backgroundColor: vars.color.grey[100],
+  backgroundColor: vars.color.role.line,
   flexShrink: 0,
   objectFit: "cover",
 });
@@ -70,10 +70,8 @@ export const nameRow = styleVariants({
 });
 
 export const name = style({
-  fontSize: 14,
-  fontWeight: 700,
-  color: vars.color.grey[900],
-  lineHeight: "150%",
+  ...vars.typography.body3,
+  color: vars.color.role.text,
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
@@ -87,12 +85,10 @@ export const badge = style({
   alignItems: "center",
   padding: "3px 8px 2px",
   borderRadius: 40,
-  fontSize: 12,
-  fontWeight: 500,
-  // lineHeight: 1.5,
+  ...vars.typography.label2,
   whiteSpace: "nowrap",
-  backgroundColor: vars.color.blueGreen.light,
-  color: vars.color.blueGreen.dark,
+  backgroundColor: vars.color.role.background2,
+  color: vars.color.role.secondary,
 });
 
 export const priceRow = style({
@@ -103,14 +99,10 @@ export const priceRow = style({
 });
 
 export const changeRate = style({
-  fontSize: 14,
-  fontWeight: 700,
-  lineHeight: 1.5,
+  ...vars.typography.body3,
 });
 
 export const price = style({
-  fontSize: 12,
-  fontWeight: 700,
-  color: vars.color.grey[800],
-  lineHeight: 1.5,
+  ...vars.typography.label1,
+  color: vars.color.role.subtext,
 });

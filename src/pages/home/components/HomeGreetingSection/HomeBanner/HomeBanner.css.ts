@@ -10,7 +10,7 @@ export const container = style({
   flexDirection: "column",
   alignItems: "center",
   overflow: "hidden",
-  background: "linear-gradient(181deg, #F7FAFF 0%, #FFFFFF 15%, #C6EDFF 100%)",
+  background: `linear-gradient(181deg, #F7FAFF 0%, ${vars.color.role.background} 15%, #C6EDFF 100%)`,
   minHeight: 120,
 });
 
@@ -30,16 +30,14 @@ export const label = style({
   fontSize: 11,
   fontWeight: "500",
   lineHeight: "150%",
-  color: vars.color.blueGreen.dark,
+  color: vars.color.role.secondary,
 });
 
 export const title = style({
   margin: 0,
-  fontSize: 16,
-  fontWeight: 700,
-  lineHeight: "150%",
+  ...vars.typography.body1,
   textAlign: "center",
-  color: "#303030",
+  color: vars.color.role.text,
 });
 
 export const circleTopRight = style({
