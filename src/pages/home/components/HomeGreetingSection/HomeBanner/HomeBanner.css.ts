@@ -30,7 +30,7 @@ export const label = style({
   fontSize: 11,
   fontWeight: "500",
   lineHeight: "150%",
-  color: vars.color.blueGreen.dark,
+  color: vars.color.role.secondary,
 });
 
 export const title = style({

@@ -5,7 +5,7 @@ const base = style({
   flexShrink: 0,
   borderRadius: 16,
   overflow: "hidden",
-  backgroundColor: vars.color.grey[50],
+  backgroundColor: vars.color.role.background2,
 });
 
 export const layout = styleVariants({
@@ -39,7 +39,7 @@ export const logo = style({
   width: 40,
   height: 40,
   borderRadius: "50%",
-  backgroundColor: vars.color.grey[100],
+  backgroundColor: vars.color.role.line,
   flexShrink: 0,
   objectFit: "cover",
 });
@@ -89,8 +89,8 @@ export const badge = style({
   fontWeight: 500,
   // lineHeight: 1.5,
   whiteSpace: "nowrap",
-  backgroundColor: vars.color.blueGreen.light,
-  color: vars.color.blueGreen.dark,
+  backgroundColor: vars.color.role.background2,
+  color: vars.color.role.secondary,
 });
 
 export const priceRow = style({

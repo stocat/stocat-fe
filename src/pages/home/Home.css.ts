@@ -11,5 +11,5 @@ export const bar = style({
   height: "5px",
   marginLeft: "-16px",
   marginRight: "-16px",
-  backgroundColor: vars.color.grey[300],
+  backgroundColor: vars.color.role.line,
 });
