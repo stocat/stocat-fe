@@ -27,8 +27,7 @@ export const ctaMyWallet = style({
 
 globalStyle(`${ctaMyWallet} > span`, {
   width: "fit-content",
-  fontSize: 12,
-  fontWeight: 600,
+  ...vars.typography.caption2,
   color: vars.color.role.subtext,
 });
 

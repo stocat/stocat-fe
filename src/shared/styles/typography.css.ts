@@ -13,6 +13,9 @@ export const typography = {
   body5: { fontSize: "14px", fontWeight: "400", lineHeight: "150%" },
 
   caption1: { fontSize: "12px", fontWeight: "400", lineHeight: "150%" },
-  caption2: { fontSize: "12px", fontWeight: "400", lineHeight: "150%" },
+  caption2: { fontSize: "12px", fontWeight: "600", lineHeight: "150%" },
   caption3: { fontSize: "11px", fontWeight: "400", lineHeight: "150%" },
+
+  label1: { fontSize: "12px", fontWeight: "700", lineHeight: "150%" },
+  label2: { fontSize: "12px", fontWeight: "500", lineHeight: "150%" },
 } as const;

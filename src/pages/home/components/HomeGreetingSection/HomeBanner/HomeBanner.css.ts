@@ -37,7 +37,7 @@ export const title = style({
   margin: 0,
   ...vars.typography.body1,
   textAlign: "center",
-  color: "#303030",
+  color: vars.color.role.text,
 });
 
 export const circleTopRight = style({

@@ -85,9 +85,7 @@ export const badge = style({
   alignItems: "center",
   padding: "3px 8px 2px",
   borderRadius: 40,
-  fontSize: 12,
-  fontWeight: 500,
-  // lineHeight: 1.5,
+  ...vars.typography.label2,
   whiteSpace: "nowrap",
   backgroundColor: vars.color.role.background2,
   color: vars.color.role.secondary,
@@ -101,14 +99,10 @@ export const priceRow = style({
 });
 
 export const changeRate = style({
-  fontSize: 14,
-  fontWeight: 700,
-  lineHeight: 1.5,
+  ...vars.typography.body3,
 });
 
 export const price = style({
-  fontSize: 12,
-  fontWeight: 700,
+  ...vars.typography.label1,
   color: vars.color.role.subtext,
-  lineHeight: 1.5,
 });
