@@ -1,3 +1,8 @@
+export const accentColor = {
+  red: "#FF383C",
+  blue: "#0088FF",
+} as const;
+
 export const roleColor = {
   primary: "#00BECC",
   secondary: "#008F99",
