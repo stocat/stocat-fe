@@ -34,16 +34,14 @@ export const titleWrapper = style({
 });
 
 export const title = style({
-  fontSize: 12,
-  fontWeight: 500,
+  ...vars.typography.label2,
   color: vars.color.role.primary,
 });
 
 export const sparkleIcon = style({ flexShrink: 0 });
 
 export const analysisContent = style({
-  fontSize: 12,
-  fontWeight: 700,
+  ...vars.typography.label1,
   color: vars.color.role.subcolor,
   whiteSpace: "pre-line",
 });

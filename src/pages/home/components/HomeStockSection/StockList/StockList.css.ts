@@ -24,8 +24,7 @@ globalStyle(`${badgeList} > button`, {
 
   width: "fit-content",
   height: 30,
-  fontSize: 12,
-  fontWeight: 700,
+  ...vars.typography.label1,
   color: vars.color.role.subtext,
 
   borderRadius: 100,

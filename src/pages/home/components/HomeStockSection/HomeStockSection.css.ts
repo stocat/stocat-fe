@@ -24,10 +24,8 @@ export const ctaMyStocks = style({
 });
 
 export const ctaMyStockTitle = style({
-  fontSize: 12,
-  fontWeight: 600,
+  ...vars.typography.caption2,
   color: vars.color.role.subtext,
-  lineHeight: "150%",
 });
 
 export const ctaMyStockVector = style({
