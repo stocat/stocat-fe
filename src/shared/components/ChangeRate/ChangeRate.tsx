@@ -7,7 +7,7 @@ interface ChangeRateProps {
   children?: React.ReactNode;
 }
 
-export default function ChangeRate({
+export function ChangeRate({
   value,
   typography = "body4",
   className,
