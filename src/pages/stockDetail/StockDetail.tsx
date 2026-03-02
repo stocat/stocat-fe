@@ -1,23 +1,40 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import * as styles from "./StockDetail.css";
-import type { TabType, PeriodType } from "./StockDetail.types";
+import type { TabType, PeriodType, CategoryTag } from "./StockDetail.types";
 import { tabs, periods, getStockById } from "./StockDetail.mock";
-
 import {
   StockHeader,
   TabNav,
   PeriodSelector,
   ChartArea,
   PriceInfo,
-  CategoryTags,
-  FinancialSummary,
+  InfluenceSection,
   NewsSection,
   FeedSection,
 } from "./components";
 
+interface NavStock {
+  name: string;
+  price: number;
+  changePercent: number;
+  categories: CategoryTag[];
+}
+
+function formatPrice(price: number): string {
+  return `${price.toLocaleString("ko-KR")}원`;
+}
+
+function formatChangePercent(percent: number): string {
+  const sign = percent > 0 ? "+" : "";
+  return `${sign}${percent.toFixed(1)}%`;
+}
+
 export default function StockDetail() {
   const { stockId } = useParams<{ stockId: string }>();
+  const location = useLocation();
+  const navStock = (location.state as { stock?: NavStock } | null)?.stock;
+
   const [activeTab, setActiveTab] = useState<TabType>("info");
   const [activePeriod, setActivePeriod] = useState<PeriodType>("1D");
 
@@ -31,12 +48,19 @@ export default function StockDetail() {
     );
   }
 
+  const displayName = navStock?.name ?? stock.name;
+  const displayPrice = navStock?.price ?? stock.price;
+  const displayChangePercent = navStock?.changePercent ?? stock.changePercent;
+  const displayCategories = navStock?.categories ?? [{ label: stock.industry, type: "industry" as const }];
+
   return (
     <div className={styles.container}>
       <StockHeader
-        name={stock.name}
-        price={stock.price}
-        changePercent={stock.changePercent}
+        categories={displayCategories}
+        name={displayName}
+        value={formatPrice(displayPrice)}
+        change={formatChangePercent(displayChangePercent)}
+        isPositive={displayChangePercent > 0}
       />
 
       <TabNav tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
@@ -53,29 +77,21 @@ export default function StockDetail() {
           </div>
 
           <div className={styles.section}>
-            <PriceInfo priceInfo={stock.priceInfo} />
-          </div>
-
-          <div className={styles.section}>
-            <CategoryTags categories={stock.categories} />
-            <FinancialSummary />
+            <PriceInfo stockId={stock.id} />
           </div>
 
           <div className={styles.divider} />
 
-          <NewsSection
-            title="산업 소식"
-            news={stock.industryNews}
-            showHelp
-            showMore
+          <InfluenceSection
+            reasons={stock.influenceReasons}
+            stockName={stock.name}
           />
 
           <div className={styles.divider} />
 
           <NewsSection
-            title="기업 소식"
-            news={stock.companyNews}
-            showPlaceholder
+            industryNews={stock.industryNews}
+            companyNews={stock.companyNews}
           />
 
           <div className={styles.divider} />

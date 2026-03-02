@@ -40,7 +40,7 @@ export const rangeIndicator = style({
   position: "absolute",
   width: "12px",
   height: "12px",
-  backgroundColor: vars.color.grey[700],
+  backgroundColor: vars.color.blueGreen.normal,
   borderRadius: "50%",
   top: "50%",
   transform: "translate(-50%, -50%)",

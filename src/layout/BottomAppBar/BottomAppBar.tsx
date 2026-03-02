@@ -43,10 +43,10 @@ function TradeBar({ onSell, onBuy }: TradeBarProps) {
   return (
     <div className={styles.tradeBar}>
       <button type="button" className={styles.sellButton} onClick={onSell}>
-        판매
+        판매하기
       </button>
       <button type="button" className={styles.buyButton} onClick={onBuy}>
-        구매
+        구매하기
       </button>
     </div>
   );

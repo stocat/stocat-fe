@@ -1,8 +1,8 @@
-import type { PriceInfo as PriceInfoType } from "../../StockDetail.types";
+import { usePriceInfo } from "./usePriceInfo";
 import * as styles from "./PriceInfo.css";
 
 interface PriceInfoProps {
-  priceInfo: PriceInfoType;
+  stockId: string;
 }
 
 function formatPrice(price: number): string {
@@ -49,7 +49,12 @@ function PriceRange({ lowLabel, highLabel, low, high, current }: PriceRangeProps
   );
 }
 
-export default function PriceInfo({ priceInfo }: PriceInfoProps) {
+export default function PriceInfo({ stockId }: PriceInfoProps) {
+  const { priceInfo, isLoading, error } = usePriceInfo(stockId);
+
+  if (isLoading) return null;
+  if (error || !priceInfo) return null;
+
   return (
     <section className={styles.container}>
       <div className={styles.header}>
