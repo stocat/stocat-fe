@@ -1,5 +1,5 @@
 import * as styles from "./MarketCard.css";
-import ChangeRate from "@/shared/components/ChangeRate";
+import { Badge, ChangeRate } from "@/shared/components";
 
 interface MarketCardProps {
   variant: "horizontal" | "vertical";
@@ -24,7 +24,7 @@ export default function MarketCard({
       <div className={styles.info[variant]}>
         <div className={styles.nameRow[variant]}>
           <span className={styles.name}>{name}</span>
-          <span className={styles.badge}>{sector}</span>
+          <Badge>{sector}</Badge>
         </div>
         <div className={styles.priceRow}>
           <ChangeRate value={changeRate} typography="body3" />

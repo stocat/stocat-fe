@@ -1,5 +1,5 @@
 import * as styles from "./MyStockContent.css";
-import ChangeRate from "@/shared/components/ChangeRate";
+import { ChangeRate } from "@/shared/components";
 
 interface MyStockContentProps {
   name: string;

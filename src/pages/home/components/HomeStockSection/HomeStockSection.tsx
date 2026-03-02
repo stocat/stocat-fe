@@ -6,7 +6,7 @@ import { VectorRight } from "@/assets/icons/components";
 
 import StockAnalysis from "./StockAnalysis/StockAnalysis";
 import StockList from "./StockList/StockList";
-import ChangeRate from "@/shared/components/ChangeRate";
+import { ChangeRate } from "@/shared/components";
 
 const FILTERS = ["직접 설정한 순", "현재가", "평가금액"] as const;
 type Filter = (typeof FILTERS)[number];
