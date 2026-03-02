@@ -9,7 +9,7 @@ export const container = style({
   flexDirection: "column",
   alignItems: "center",
   gap: 12,
-  background: "#ffffff",
+  background: vars.color.role.background,
   paddingTop: 24,
   paddingBottom: 24,
   paddingLeft: 16,
@@ -24,10 +24,8 @@ export const ctaMyStocks = style({
 });
 
 export const ctaMyStockTitle = style({
-  fontSize: 12,
-  fontWeight: 600,
-  color: vars.color.grey[800],
-  lineHeight: "150%",
+  ...vars.typography.caption2,
+  color: vars.color.role.subtext,
 });
 
 export const ctaMyStockVector = style({
@@ -43,16 +41,12 @@ export const balanceContainer = style({
 });
 
 export const currentBalance = style({
-  fontSize: 24,
-  fontWeight: 700,
-  color: "#1a1a1a",
-  lineHeight: "150%",
+  ...vars.typography.h1,
+  color: vars.color.role.text,
 });
 
 export const currentVariation = style({
   paddingBottom: 4,
-  fontSize: 16,
-  fontWeight: 500,
+  ...vars.typography.body2,
   color: "#FF383C",
-  lineHeight: "150%",
 });

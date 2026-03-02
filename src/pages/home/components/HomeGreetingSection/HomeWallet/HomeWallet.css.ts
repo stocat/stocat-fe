@@ -27,9 +27,8 @@ export const ctaMyWallet = style({
 
 globalStyle(`${ctaMyWallet} > span`, {
   width: "fit-content",
-  fontSize: 12,
-  fontWeight: 600,
-  color: vars.color.grey[800],
+  ...vars.typography.caption2,
+  color: vars.color.role.subtext,
 });
 
 export const ctaMyWalletVector = style({
@@ -38,9 +37,8 @@ export const ctaMyWalletVector = style({
 
 export const currentTime = style({
   width: "fit-content",
-  fontSize: 12,
-  fontWeight: 400,
-  color: vars.color.grey[600],
+  ...vars.typography.caption1,
+  color: vars.color.role.grey,
 });
 
 export const buttonWrapper = style({
@@ -61,18 +59,16 @@ export const button = style({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  backgroundColor: vars.color.grey[50],
+  backgroundColor: vars.color.role.background2,
   borderRadius: 16,
 });
 
 export const currency = style({
-  fontSize: 14,
-  fontWeight: 400,
-  color: vars.color.grey[600],
+  ...vars.typography.body5,
+  color: vars.color.role.grey,
 });
 
 export const balance = style({
-  fontSize: 14,
-  fontWeight: 700,
-  color: vars.color.grey[900],
+  ...vars.typography.body3,
+  color: vars.color.role.text,
 });

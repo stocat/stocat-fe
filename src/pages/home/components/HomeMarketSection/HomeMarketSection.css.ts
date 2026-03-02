@@ -12,14 +12,13 @@ export const container = style({
   display: "flex",
   flexDirection: "column",
   gap: 12,
-  background: "#ffffff",
+  background: vars.color.role.background,
 });
 
 export const sectionTitle = style({
   width: "100%",
-  fontSize: 14,
-  fontWeight: 700,
-  color: vars.color.grey[800],
+  ...vars.typography.body3,
+  color: vars.color.role.subtext,
 });
 
 export const verticalList = style({});
