@@ -77,20 +77,6 @@ export const name = style({
   textOverflow: "ellipsis",
 });
 
-export const badge = style({
-  minWidth: 32,
-  height: 22,
-  display: "inline-flex",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "3px 8px 2px",
-  borderRadius: 40,
-  ...vars.typography.label2,
-  whiteSpace: "nowrap",
-  backgroundColor: vars.color.role.background2,
-  color: vars.color.role.secondary,
-});
-
 export const priceRow = style({
   marginTop: 2,
   display: "flex",
