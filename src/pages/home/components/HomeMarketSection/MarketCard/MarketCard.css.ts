@@ -98,10 +98,6 @@ export const priceRow = style({
   gap: 6,
 });
 
-export const changeRate = style({
-  ...vars.typography.body3,
-});
-
 export const price = style({
   ...vars.typography.label1,
   color: vars.color.role.subtext,

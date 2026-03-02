@@ -6,6 +6,7 @@ import { VectorRight } from "@/assets/icons/components";
 
 import StockAnalysis from "./StockAnalysis/StockAnalysis";
 import StockList from "./StockList/StockList";
+import ChangeRate from "@/shared/components/ChangeRate";
 
 const FILTERS = ["직접 설정한 순", "현재가", "평가금액"] as const;
 type Filter = (typeof FILTERS)[number];
@@ -25,9 +26,13 @@ export default function HomeStockSection() {
       </button>
       <div className={styles.balanceContainer}>
         <span className={styles.currentBalance}>{MOCK_BALANCE.total}</span>
-        <span className={styles.currentVariation}>
-          {MOCK_BALANCE.variation}
-        </span>
+        <ChangeRate
+          value={MOCK_BALANCE.variationRate}
+          typography="body2"
+          className={styles.currentVariation}
+        >
+          {`+${MOCK_BALANCE.variationAmount.toLocaleString()}원 (${MOCK_BALANCE.variationRate}%)`}
+        </ChangeRate>
       </div>
       <StockList
         filters={FILTERS}

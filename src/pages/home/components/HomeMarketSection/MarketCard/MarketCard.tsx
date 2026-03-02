@@ -1,4 +1,5 @@
 import * as styles from "./MarketCard.css";
+import ChangeRate from "@/shared/components/ChangeRate";
 
 interface MarketCardProps {
   variant: "horizontal" | "vertical";
@@ -17,10 +18,6 @@ export default function MarketCard({
   price,
   logoUrl,
 }: MarketCardProps) {
-  const isPositive = changeRate >= 0;
-  const changeColor = isPositive ? "#FF383C" : "#2E7BF6";
-  const changeText = `${isPositive ? "+" : ""}${changeRate}%`;
-
   return (
     <div className={styles.layout[variant]}>
       <img className={styles.logo} src={logoUrl} alt={name} />
@@ -30,9 +27,7 @@ export default function MarketCard({
           <span className={styles.badge}>{sector}</span>
         </div>
         <div className={styles.priceRow}>
-          <span className={styles.changeRate} style={{ color: changeColor }}>
-            {changeText}
-          </span>
+          <ChangeRate value={changeRate} typography="body3" />
           <span className={styles.price}>{price}</span>
         </div>
       </div>

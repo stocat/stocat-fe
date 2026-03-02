@@ -1,4 +1,5 @@
 import * as styles from "./MyStockContent.css";
+import ChangeRate from "@/shared/components/ChangeRate";
 
 interface MyStockContentProps {
   name: string;
@@ -13,8 +14,6 @@ export default function MyStockContent({
   currentPrice,
   changeRate,
 }: MyStockContentProps) {
-  const isPositive = changeRate >= 0;
-
   return (
     <div className={styles.container}>
       <div className={styles.corpInfoWrapper}>
@@ -26,10 +25,7 @@ export default function MyStockContent({
       </div>
       <div className={styles.priceWrapper}>
         <span className={styles.currentPrice}>{currentPrice}</span>
-        <span className={isPositive ? styles.increase : styles.decrease}>
-          {isPositive ? "+" : ""}
-          {changeRate}%
-        </span>
+        <ChangeRate value={changeRate} />
       </div>
     </div>
   );

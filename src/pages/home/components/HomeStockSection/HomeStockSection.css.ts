@@ -47,6 +47,4 @@ export const currentBalance = style({
 
 export const currentVariation = style({
   paddingBottom: 4,
-  ...vars.typography.body2,
-  color: "#FF383C",
 });

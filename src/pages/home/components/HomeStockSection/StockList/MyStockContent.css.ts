@@ -61,13 +61,3 @@ export const currentPrice = style({
   ...vars.typography.body3,
   color: vars.color.role.text,
 });
-
-export const increase = style({
-  ...vars.typography.body4,
-  color: "#FF383C",
-});
-
-export const decrease = style({
-  ...vars.typography.body4,
-  color: "#2E7BF6",
-});
