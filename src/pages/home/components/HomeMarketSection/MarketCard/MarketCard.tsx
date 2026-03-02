@@ -1,5 +1,5 @@
 import * as styles from "./MarketCard.css";
-import { Badge, ChangeRate } from "@/shared/components";
+import { Badge, ChangeRate, Logo } from "@/shared/components";
 
 interface MarketCardProps {
   variant: "horizontal" | "vertical";
@@ -20,7 +20,7 @@ export default function MarketCard({
 }: MarketCardProps) {
   return (
     <div className={styles.layout[variant]}>
-      <img className={styles.logo} src={logoUrl} alt={name} />
+      <Logo src={logoUrl} alt={name} size={40} />
       <div className={styles.info[variant]}>
         <div className={styles.nameRow[variant]}>
           <span className={styles.name}>{name}</span>

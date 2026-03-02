@@ -23,13 +23,6 @@ export const corpInfoWrapper = style({
   gap: 16,
 });
 
-export const corpInfoLogo = style({
-  width: 46,
-  height: 46,
-  borderRadius: 1000,
-  backgroundColor: "#FEF2F2",
-});
-
 export const corpInfoTitleWrapper = style({
   width: "fit-content",
   display: "flex",

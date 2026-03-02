@@ -35,15 +35,6 @@ export const layout = styleVariants({
   ],
 });
 
-export const logo = style({
-  width: 40,
-  height: 40,
-  borderRadius: "50%",
-  backgroundColor: vars.color.role.line,
-  flexShrink: 0,
-  objectFit: "cover",
-});
-
 export const info = styleVariants({
   horizontal: {
     display: "flex",
