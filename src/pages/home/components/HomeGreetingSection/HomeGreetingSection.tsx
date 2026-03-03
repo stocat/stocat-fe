@@ -36,6 +36,18 @@ export default function HomeGreetingSection({
         updatedAt={wallet.updatedAt}
       />
       <HomeExchange
+        variant="default"
+        title="환전소"
+        description="달러로 교환해보세요"
+        rate={1444.78}
+      />
+      <HomeExchange
+        variant="compact"
+        title="환전소"
+        description="달러로 교환해보세요"
+        rate={1444.78}
+      />
+      <HomeExchange
         variant="highlight"
         title="환전소"
         description="달러로 교환해보세요"
