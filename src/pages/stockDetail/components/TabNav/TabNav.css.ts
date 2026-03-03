@@ -4,10 +4,10 @@ import { vars } from "@/shared/styles/vars.css";
 export const container = style({
   display: "flex",
   borderBottom: `1px solid ${vars.color.grey[200]}`,
-  padding: "0 20px",
 });
 
 export const tab = style({
+  flex: 1,
   padding: "12px 16px",
   fontSize: "14px",
   fontWeight: 500,

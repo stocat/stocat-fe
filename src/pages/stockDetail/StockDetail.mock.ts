@@ -1,7 +1,7 @@
 import type { StockDetailData, Tab, Period } from "./StockDetail.types";
 
 export const tabs: Tab[] = [
-  { key: "info", label: "정보" },
+  { key: "info", label: "실시간 정보" },
   { key: "myStock", label: "나의 주식" },
 ];
 
@@ -17,6 +17,7 @@ export const periods: Period[] = [
 export const mockStockDetail: StockDetailData = {
   id: "samsung-electronics",
   name: "삼성전자",
+  industry: "전자부품 제조업",
   price: 119100,
   changePercent: 1.8,
   categories: [
@@ -31,6 +32,10 @@ export const mockStockDetail: StockDetailData = {
     currentPrice: 119100,
     lastUpdated: "20:00 기준",
   },
+  influenceReasons: [
+    { id: "r1", text: "세계 최초로 HBM4 양산 출하에 성공해 AI 메모리 시장 주도권 기대가 커졌어요" },
+    { id: "r2", text: "엔비디아등 글로벌 고객사에 공급하지 않으며 안정적인 흐름을 유지했기 때문이에요" },
+  ],
   industryNews: [
     {
       id: "1",

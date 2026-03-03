@@ -5,53 +5,43 @@ export const container = style({
   backgroundColor: "#ffffff",
 });
 
-export const header = style({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "16px 20px",
-  borderBottom: `1px solid ${vars.color.grey[100]}`,
-});
-
-export const titleContainer = style({
-  display: "flex",
-  alignItems: "center",
-  gap: "6px",
-});
-
-export const title = style({
+export const sectionTitle = style({
   fontSize: "16px",
   fontWeight: 600,
   color: vars.color.grey[900],
   margin: 0,
+  padding: "20px 20px 12px 20px",
 });
 
-export const helpIcon = style({
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "18px",
-  height: "18px",
-  fontSize: "12px",
-  fontWeight: 600,
-  color: vars.color.grey[500],
-  backgroundColor: vars.color.grey[200],
-  borderRadius: "50%",
-  cursor: "help",
+export const tabRow = style({
+  display: "flex",
+  gap: "8px",
+  padding: "0 20px 12px 20px",
+  borderBottom: `1px solid ${vars.color.grey[100]}`,
 });
 
-export const moreButton = style({
+export const tab = style({
+  padding: "6px 14px",
   fontSize: "13px",
   fontWeight: 500,
-  color: vars.color.grey[600],
+  color: vars.color.grey[500],
   backgroundColor: "transparent",
-  border: "none",
+  border: `1px solid ${vars.color.grey[200]}`,
+  borderRadius: "20px",
   cursor: "pointer",
 
   ":hover": {
-    color: vars.color.grey[800],
+    backgroundColor: vars.color.grey[200],
   },
 });
+
+export const tabActive = style([
+  tab,
+  {
+    color: vars.color.grey[900],
+    backgroundColor: vars.color.grey[200],
+  },
+]);
 
 export const newsList = style({
   listStyle: "none",
@@ -107,9 +97,21 @@ export const newsTimestamp = style({
   flexShrink: 0,
 });
 
-export const placeholder = style({
-  height: "120px",
-  backgroundColor: vars.color.grey[100],
+export const moreButton = style({
+  display: "block",
+  width: "calc(100% - 40px)",
   margin: "16px 20px",
-  borderRadius: "8px",
+  padding: "12px",
+  fontSize: "14px",
+  fontWeight: 500,
+  color: vars.color.grey[700],
+  backgroundColor: "transparent",
+  border: `1px solid ${vars.color.grey[300]}`,
+  borderRadius: "12px",
+  cursor: "pointer",
+  textAlign: "center",
+
+  ":hover": {
+    backgroundColor: vars.color.grey[50],
+  },
 });

@@ -1,44 +1,38 @@
+import { useState } from "react";
 import type { NewsItem } from "../../StockDetail.types";
 import * as styles from "./NewsSection.css";
 
 interface NewsSectionProps {
-  title: string;
-  news: NewsItem[];
-  showHelp?: boolean;
-  showMore?: boolean;
-  showPlaceholder?: boolean;
-  onMoreClick?: () => void;
+  industryNews: NewsItem[];
+  companyNews: NewsItem[];
   onNewsClick?: (newsId: string) => void;
 }
 
-export default function NewsSection({
-  title,
-  news,
-  showHelp = false,
-  showMore = false,
-  showPlaceholder = false,
-  onMoreClick,
-  onNewsClick,
-}: NewsSectionProps) {
+type NewsTab = "industry" | "company";
+
+export default function NewsSection({ industryNews, companyNews, onNewsClick }: NewsSectionProps) {
+  const [activeTab, setActiveTab] = useState<NewsTab>("industry");
+  const news = activeTab === "industry" ? industryNews : companyNews;
+
   return (
     <section className={styles.container}>
-      <div className={styles.header}>
-        <div className={styles.titleContainer}>
-          <h2 className={styles.title}>{title}</h2>
-          {showHelp && (
-            <span className={styles.helpIcon} title="도움말">
-              ?
-            </span>
-          )}
-        </div>
-        {showMore && (
-          <button type="button" className={styles.moreButton} onClick={onMoreClick}>
-            더 보기
-          </button>
-        )}
+      <h2 className={styles.sectionTitle}>소식 들어보세요</h2>
+      <div className={styles.tabRow}>
+        <button
+          type="button"
+          className={activeTab === "industry" ? styles.tabActive : styles.tab}
+          onClick={() => setActiveTab("industry")}
+        >
+          산업뉴스
+        </button>
+        <button
+          type="button"
+          className={activeTab === "company" ? styles.tabActive : styles.tab}
+          onClick={() => setActiveTab("company")}
+        >
+          기업뉴스
+        </button>
       </div>
-
-      {showPlaceholder && <div className={styles.placeholder} aria-hidden="true" />}
 
       <ul className={styles.newsList}>
         {news.map((item) => (
@@ -47,17 +41,17 @@ export default function NewsSection({
             className={item.isHighlighted ? styles.newsItemHighlighted : styles.newsItem}
             onClick={() => onNewsClick?.(item.id)}
           >
-            <span
-              className={
-                item.isHighlighted ? styles.newsTitleHighlighted : styles.newsTitle
-              }
-            >
+            <span className={item.isHighlighted ? styles.newsTitleHighlighted : styles.newsTitle}>
               {item.title}
             </span>
             <span className={styles.newsTimestamp}>{item.timestamp}</span>
           </li>
         ))}
       </ul>
+
+      <button type="button" className={styles.moreButton}>
+        다른소식보기
+      </button>
     </section>
   );
 }
