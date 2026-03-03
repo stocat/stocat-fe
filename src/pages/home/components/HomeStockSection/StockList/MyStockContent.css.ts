@@ -23,13 +23,6 @@ export const corpInfoWrapper = style({
   gap: 16,
 });
 
-export const corpInfoLogo = style({
-  width: 46,
-  height: 46,
-  borderRadius: 1000,
-  backgroundColor: "#FEF2F2",
-});
-
 export const corpInfoTitleWrapper = style({
   width: "fit-content",
   display: "flex",
@@ -60,14 +53,4 @@ export const priceWrapper = style({
 export const currentPrice = style({
   ...vars.typography.body3,
   color: vars.color.role.text,
-});
-
-export const increase = style({
-  ...vars.typography.body4,
-  color: "#FF383C",
-});
-
-export const decrease = style({
-  ...vars.typography.body4,
-  color: "#2E7BF6",
 });
