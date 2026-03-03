@@ -3,23 +3,48 @@ import { vars } from "@/shared/styles/vars.css";
 
 export const container = style({
   display: "flex",
-  justifyContent: "space-between",
-  alignItems: "flex-start",
+  flexDirection: "column",
   padding: "16px 20px",
+  gap: "4px",
+});
+
+export const tagRow = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
+  flexWrap: "wrap",
+  marginBottom: "4px",
+});
+
+export const tag = style({
+  display: "inline-flex",
+  alignItems: "center",
+  padding: "3px 10px",
+  fontSize: "13px",
+  fontWeight: 500,
+  color: vars.color.blueGreen.normal,
+  backgroundColor: vars.color.blueGreen.light,
+  borderRadius: "20px",
 });
 
 export const stockName = style({
-  fontSize: "20px",
+  fontSize: "24px",
   fontWeight: 700,
   color: vars.color.grey[900],
   margin: 0,
 });
 
-export const priceContainer = style({
+export const priceRow = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  marginTop: "4px",
+});
+
+export const priceGroup = style({
   display: "flex",
   alignItems: "baseline",
   gap: "8px",
-  textAlign: "right",
 });
 
 export const price = style({
@@ -40,8 +65,21 @@ export const changeNegative = style({
   color: "#4D7AE5",
 });
 
-export const changeNeutral = style({
-  fontSize: "16px",
+export const toggleButton = style({
+  width: "36px",
+  height: "36px",
+  fontSize: "14px",
   fontWeight: 600,
-  color: vars.color.grey[500],
+  color: vars.color.grey[700],
+  backgroundColor: vars.color.grey[100],
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+
+  ":hover": {
+    backgroundColor: vars.color.grey[200],
+  },
 });

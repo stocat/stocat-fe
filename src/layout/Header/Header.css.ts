@@ -66,3 +66,19 @@ export const iconButton = style({
   borderRadius: "8px",
   color: vars.color.grey[900],
 });
+
+export const stockDetailHeader = style({
+  height: "70px",
+  padding: "0 16px",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  borderBottom: `3px solid ${vars.color.grey[100]}`,
+  backgroundColor: "white",
+});
+
+export const stockDetailIconGroup = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 0,
+});

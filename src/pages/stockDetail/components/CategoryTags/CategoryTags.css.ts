@@ -5,25 +5,24 @@ export const container = style({
   display: "flex",
   alignItems: "center",
   gap: "8px",
-  padding: "12px 20px",
   flexWrap: "wrap",
 });
 
 export const tag = style({
   display: "inline-flex",
   alignItems: "center",
-  padding: "6px 12px",
+  padding: "4px 12px",
   fontSize: "13px",
   fontWeight: 500,
-  color: vars.color.grey[700],
-  backgroundColor: vars.color.grey[100],
-  borderRadius: "16px",
-  border: "none",
+  color: vars.color.blueGreen.normal,
+  backgroundColor: "transparent",
+  borderRadius: "20px",
+  border: `1px solid ${vars.color.blueGreen.normal}`,
   cursor: "pointer",
   transition: "all 0.2s ease",
 
   ":hover": {
-    backgroundColor: vars.color.grey[200],
+    backgroundColor: vars.color.blueGreen.light,
   },
 });
 

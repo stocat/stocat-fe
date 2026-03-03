@@ -1,6 +1,7 @@
 export interface StockDetailData {
   id: string;
   name: string;
+  industry: string;
   price: number;
   changePercent: number;
   imageUrl?: string;
@@ -8,6 +9,7 @@ export interface StockDetailData {
   priceInfo: PriceInfo;
   industryNews: NewsItem[];
   companyNews: NewsItem[];
+  influenceReasons: InfluenceReason[];
 }
 
 export interface CategoryTag {
@@ -30,6 +32,11 @@ export interface NewsItem {
   summary?: string;
   timestamp: string;
   isHighlighted?: boolean;
+}
+
+export interface InfluenceReason {
+  id: string;
+  text: string;
 }
 
 export type TabType = "info" | "myStock";
