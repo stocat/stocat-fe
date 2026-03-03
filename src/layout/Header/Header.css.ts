@@ -24,7 +24,6 @@ export const logo = style({
   margin: 0,
 });
 
-
 export const indexInfo = style({
   display: "flex",
   alignItems: "center",
