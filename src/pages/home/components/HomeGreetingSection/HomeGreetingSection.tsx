@@ -2,6 +2,7 @@ import * as styles from "./HomeGreetingSection.css";
 
 import HomeBanner from "./HomeBanner/HomeBanner";
 import HomeWallet from "./HomeWallet/HomeWallet";
+import HomeExchange from "./HomeExchange/HomeExchange";
 
 interface HomeGreetingSectionProps {
   name: string;
@@ -33,6 +34,12 @@ export default function HomeGreetingSection({
         won={wallet.won}
         dollar={wallet.dollar}
         updatedAt={wallet.updatedAt}
+      />
+      <HomeExchange
+        variant="highlight"
+        title="환전소"
+        description="달러로 교환해보세요"
+        rate={1444.78}
       />
     </section>
   );
