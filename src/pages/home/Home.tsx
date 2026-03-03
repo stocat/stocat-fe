@@ -2,9 +2,13 @@ import * as styles from "./Home.css";
 import {
   HomeGreetingSection,
   HomeMarketSection,
+  HomeRankingSection,
   HomeStockSection,
 } from "./components";
-import { MOCK_GREETING, MOCK_WALLET } from "./components/HomeGreetingSection/HomeGreetingSection.mock";
+import {
+  MOCK_GREETING,
+  MOCK_WALLET,
+} from "./components/HomeGreetingSection/HomeGreetingSection.mock";
 
 export default function Home() {
   return (
@@ -15,8 +19,12 @@ export default function Home() {
         remainingMinutes={MOCK_GREETING.remainingMinutes}
         wallet={MOCK_WALLET}
       />
-      <HomeStockSection />
+      <HomeStockSection
+        remainingHours={MOCK_GREETING.remainingHours}
+        remainingMinutes={MOCK_GREETING.remainingMinutes}
+      />
       <HomeMarketSection />
+      <HomeRankingSection />
     </div>
   );
 }

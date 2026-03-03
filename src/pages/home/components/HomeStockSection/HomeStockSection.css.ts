@@ -33,8 +33,13 @@ export const ctaMyStockVector = style({
 });
 
 export const balanceContainer = style({
-  marginTop: 8,
   width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "flex-end",
+});
+
+export const balanceWrapper = style({
   display: "flex",
   alignItems: "flex-end",
   gap: 8,
@@ -47,4 +52,11 @@ export const currentBalance = style({
 
 export const currentVariation = style({
   paddingBottom: 4,
+});
+
+export const expiryNotice = style({
+  marginTop: -12,
+  width: "100%",
+  ...vars.typography.caption1,
+  color: vars.color.role.grey,
 });
