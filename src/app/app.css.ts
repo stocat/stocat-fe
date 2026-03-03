@@ -20,5 +20,5 @@ export const mobileFrame = style({
 
 export const content = style({
   overflowY: "auto",
-  paddingBottom: "64px",
+  paddingBottom: "80px",
 });
