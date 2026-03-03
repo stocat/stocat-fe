@@ -1,8 +1,9 @@
 import { green, blue, grey, blueGreen } from "./color.scale.css";
-import { roleColor } from "./color.role.css";
+import { roleColor, accentColor } from "./color.role.css";
 
 export const color = {
   role: roleColor,
+  accent: accentColor,
   green: {
     light: green[50],
     lightHover: green[100],

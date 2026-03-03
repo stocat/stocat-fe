@@ -1,4 +1,5 @@
 import * as styles from "./MyStockContent.css";
+import { ChangeRate, Logo } from "@/shared/components";
 
 interface MyStockContentProps {
   name: string;
@@ -13,12 +14,10 @@ export default function MyStockContent({
   currentPrice,
   changeRate,
 }: MyStockContentProps) {
-  const isPositive = changeRate >= 0;
-
   return (
     <div className={styles.container}>
       <div className={styles.corpInfoWrapper}>
-        <div className={styles.corpInfoLogo}></div>
+        <Logo src={undefined} alt={name} size={46} />
         <div className={styles.corpInfoTitleWrapper}>
           <span className={styles.corpInfoTitle}>{name}</span>
           <span className={styles.averagePrice}>{averagePrice}</span>
@@ -26,10 +25,7 @@ export default function MyStockContent({
       </div>
       <div className={styles.priceWrapper}>
         <span className={styles.currentPrice}>{currentPrice}</span>
-        <span className={isPositive ? styles.increase : styles.decrease}>
-          {isPositive ? "+" : ""}
-          {changeRate}%
-        </span>
+        <ChangeRate value={changeRate} />
       </div>
     </div>
   );

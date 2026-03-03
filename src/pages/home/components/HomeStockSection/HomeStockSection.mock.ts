@@ -1,6 +1,7 @@
 export const MOCK_BALANCE = {
   total: "49,350 원",
-  variation: "+1,800원 (3.7%)",
+  variationAmount: 1800,
+  variationRate: 3.7,
 };
 
 export const MOCK_STOCKS = [
