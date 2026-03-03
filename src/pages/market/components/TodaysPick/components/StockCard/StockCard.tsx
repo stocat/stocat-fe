@@ -27,7 +27,7 @@ export default function StockCard({ stock, onFavoriteToggle }: StockCardProps) {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate(`/stock/${stock.id}`);
+    navigate(`/stock/${stock.id}`, { state: { stock } });
   };
 
   const handleFavoriteClick = (e: React.MouseEvent) => {

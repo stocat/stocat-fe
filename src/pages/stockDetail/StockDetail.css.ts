@@ -5,7 +5,7 @@ export const container = style({
   display: "flex",
   flexDirection: "column",
   minHeight: "100%",
-  backgroundColor: vars.color.grey[50],
+  backgroundColor: "white",
 });
 
 export const section = style({

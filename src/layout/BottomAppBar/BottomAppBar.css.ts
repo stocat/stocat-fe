@@ -30,7 +30,7 @@ export const navItem = style({
   transition: "color 0.2s ease",
 
   ":hover": {
-    color: vars.color.blueGreen.normal,
+    color: vars.color.grey[900],
   },
 });
 
@@ -49,7 +49,7 @@ export const tradeBar = style({
   left: "50%",
   transform: "translateX(-50%)",
   width: "394px",
-  height: "64px",
+  height: "80px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -72,9 +72,18 @@ export const tradeButton = style({
 
 export const sellButton = style([
   tradeButton,
-
+  {
+    backgroundColor: "#4285F4",
+    color: "#fff",
+    borderRadius: "12px",
+  },
 ]);
 
 export const buyButton = style([
   tradeButton,
+  {
+    backgroundColor: "#F46163",
+    color: "#fff",
+    borderRadius: "12px",
+  },
 ]);
