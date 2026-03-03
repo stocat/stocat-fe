@@ -12,7 +12,8 @@ export const container = style({
 export const badgeList = style({
   width: "100%",
   display: "flex",
-  alignItems: "flex-start",
+  justifyContent: "flex-end",
+  alignItems: "center",
   gap: 8,
 });
 

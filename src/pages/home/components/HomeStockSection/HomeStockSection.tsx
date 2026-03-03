@@ -6,13 +6,24 @@ import { VectorRight } from "@/assets/icons/components";
 
 import StockAnalysis from "./StockAnalysis/StockAnalysis";
 import StockList from "./StockList/StockList";
-import { ChangeRate } from "@/shared/components";
+import { ChangeRate, CurrencyToggle } from "@/shared/components";
 
-const FILTERS = ["직접 설정한 순", "현재가", "평가금액"] as const;
+const FILTERS = ["현재가", "평가금액"] as const;
 type Filter = (typeof FILTERS)[number];
 
-export default function HomeStockSection() {
-  const [selectedFilter, setSelectedFilter] = useState<Filter>("직접 설정한 순");
+type Currency = "dollar" | "won";
+
+interface HomeStockSectionProps {
+  remainingHours: string;
+  remainingMinutes: string;
+}
+
+export default function HomeStockSection({
+  remainingHours,
+  remainingMinutes,
+}: HomeStockSectionProps) {
+  const [selectedFilter, setSelectedFilter] = useState<Filter>("현재가");
+  const [currency, setCurrency] = useState<Currency>("won");
 
   return (
     <section className={styles.container}>
@@ -25,19 +36,30 @@ export default function HomeStockSection() {
         />
       </button>
       <div className={styles.balanceContainer}>
-        <span className={styles.currentBalance}>{MOCK_BALANCE.total}</span>
-        <ChangeRate
-          value={MOCK_BALANCE.variationRate}
-          typography="body2"
-          className={styles.currentVariation}
-        >
-          {`+${MOCK_BALANCE.variationAmount.toLocaleString()}원 (${MOCK_BALANCE.variationRate}%)`}
-        </ChangeRate>
+        <div className={styles.balanceWrapper}>
+          <span className={styles.currentBalance}>
+            {MOCK_BALANCE[currency].total}
+          </span>
+          <ChangeRate
+            value={MOCK_BALANCE[currency].variationRate}
+            typography="body2"
+            className={styles.currentVariation}
+          >
+            {currency === "won"
+              ? `+${MOCK_BALANCE.won.variationAmount.toLocaleString()}원 (${MOCK_BALANCE.won.variationRate}%)`
+              : `+$${MOCK_BALANCE.dollar.variationAmount} (${MOCK_BALANCE.dollar.variationRate}%)`}
+          </ChangeRate>
+        </div>
+        <CurrencyToggle currency={currency} onChange={setCurrency} />
       </div>
+      <span className={styles.expiryNotice}>
+        {remainingHours}시간 {remainingMinutes}분 뒤면 종목이 소멸돼요!
+      </span>
       <StockList
         filters={FILTERS}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
+        currency={currency}
       />
       <StockAnalysis />
     </section>
