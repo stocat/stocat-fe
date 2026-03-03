@@ -15,7 +15,10 @@ export default function Home() {
         remainingMinutes={MOCK_GREETING.remainingMinutes}
         wallet={MOCK_WALLET}
       />
-      <HomeStockSection />
+      <HomeStockSection
+        remainingHours={MOCK_GREETING.remainingHours}
+        remainingMinutes={MOCK_GREETING.remainingMinutes}
+      />
       <HomeMarketSection />
     </div>
   );
