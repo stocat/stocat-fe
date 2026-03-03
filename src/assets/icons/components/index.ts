@@ -1,7 +1,7 @@
-import AiSparkle from "./AiSparkle";
-import VectorRight from "./VectorRight";
-import CharacterSnovy from "./CharacterSnovy";
+// src/pages/home/components/HomeGreetingSection
+export { default as HomeCoinOne } from "./HomeCoinOne";
+export { default as HomeCoinTwo } from "./HomeCoinTwo";
 
-export { CharacterSnovy };
-export { VectorRight };
-export { AiSparkle };
+export { default as CharacterSnovy } from "./CharacterSnovy";
+export { default as VectorRight } from "./VectorRight";
+export { default as AiSparkle } from "./AiSparkle";
