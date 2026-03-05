@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { CategoryTag } from "../../StockDetail.types";
+import { CurrencyToggle } from "@/shared/components";
 import * as styles from "./StockHeader.css";
 
 interface StockHeaderProps {
@@ -11,7 +12,7 @@ interface StockHeaderProps {
 }
 
 export default function StockHeader({ categories, name, value, change, isPositive }: StockHeaderProps) {
-  const [showWon, setShowWon] = useState(true);
+  const [currency, setCurrency] = useState<"dollar" | "won">("won");
 
   return (
     <header className={styles.container}>
@@ -28,14 +29,7 @@ export default function StockHeader({ categories, name, value, change, isPositiv
             {change}
           </span>
         </div>
-        <button
-          type="button"
-          className={styles.toggleButton}
-          onClick={() => setShowWon((prev) => !prev)}
-          aria-label="원화/달러 토글"
-        >
-          {showWon ? "W" : "$"}
-        </button>
+        <CurrencyToggle currency={currency} onChange={setCurrency} />
       </div>
     </header>
   );
