@@ -22,6 +22,7 @@ export function TradeProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTrade() {
   const ctx = useContext(TradeContext);
   if (!ctx) throw new Error("useTrade must be used within TradeProvider");
