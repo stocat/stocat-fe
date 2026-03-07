@@ -5,13 +5,14 @@ export const viewport = style({
   minHeight: "100vh",
   display: "flex",
   justifyContent: "center",
-  alignItems: "center",
+  alignItems: "flex-start",
   backgroundColor: vars.color.grey[100],
 });
 
 export const mobileFrame = style({
+  position: "relative",
   width: "394px",
-  height: "auto",
+  minHeight: "100vh",
   backgroundColor: "white",
   overflow: "hidden",
   display: "flex",

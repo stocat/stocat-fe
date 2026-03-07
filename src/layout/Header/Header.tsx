@@ -2,16 +2,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { VectorLeft } from "@/assets/icons/components";
 import * as styles from "./Header.css";
 import { useIndexInfo } from "./useIndexInfo";
+import { useTrade } from "@/app/TradeContext";
 
 function StockDetailHeader() {
   const navigate = useNavigate();
+  const { mode, close } = useTrade();
 
   return (
     <header className={styles.stockDetailHeader}>
       <button
         className={styles.iconButton}
         aria-label="뒤로가기"
-        onClick={() => navigate(-1)}
+        onClick={() => (mode ? close() : navigate(-1))}
       >
         <VectorLeft
           width={24}
