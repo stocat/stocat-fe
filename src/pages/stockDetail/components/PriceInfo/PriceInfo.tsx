@@ -22,7 +22,13 @@ interface PriceRangeProps {
   current: number;
 }
 
-function PriceRange({ lowLabel, highLabel, low, high, current }: PriceRangeProps) {
+function PriceRange({
+  lowLabel,
+  highLabel,
+  low,
+  high,
+  current,
+}: PriceRangeProps) {
   const position = calculatePosition(current, low, high);
 
   return (

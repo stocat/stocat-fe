@@ -10,7 +10,11 @@ interface NewsSectionProps {
 
 type NewsTab = "industry" | "company";
 
-export default function NewsSection({ industryNews, companyNews, onNewsClick }: NewsSectionProps) {
+export default function NewsSection({
+  industryNews,
+  companyNews,
+  onNewsClick,
+}: NewsSectionProps) {
   const [activeTab, setActiveTab] = useState<NewsTab>("industry");
   const news = activeTab === "industry" ? industryNews : companyNews;
 
@@ -38,10 +42,18 @@ export default function NewsSection({ industryNews, companyNews, onNewsClick }: 
         {news.map((item) => (
           <li
             key={item.id}
-            className={item.isHighlighted ? styles.newsItemHighlighted : styles.newsItem}
+            className={
+              item.isHighlighted ? styles.newsItemHighlighted : styles.newsItem
+            }
             onClick={() => onNewsClick?.(item.id)}
           >
-            <span className={item.isHighlighted ? styles.newsTitleHighlighted : styles.newsTitle}>
+            <span
+              className={
+                item.isHighlighted
+                  ? styles.newsTitleHighlighted
+                  : styles.newsTitle
+              }
+            >
               {item.title}
             </span>
             <span className={styles.newsTimestamp}>{item.timestamp}</span>
