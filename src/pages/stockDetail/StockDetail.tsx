@@ -12,7 +12,9 @@ import {
   InfluenceSection,
   NewsSection,
   FeedSection,
+  TradeSheet,
 } from "./components";
+import { useTrade } from "@/app/TradeContext";
 
 interface NavStock {
   name: string;
@@ -34,6 +36,7 @@ export default function StockDetail() {
   const { stockId } = useParams<{ stockId: string }>();
   const location = useLocation();
   const navStock = (location.state as { stock?: NavStock } | null)?.stock;
+  const { mode, close } = useTrade();
 
   const [activeTab, setActiveTab] = useState<TabType>("info");
   const [activePeriod, setActivePeriod] = useState<PeriodType>("1D");
@@ -54,6 +57,20 @@ export default function StockDetail() {
   const displayCategories = navStock?.categories ?? [
     { label: stock.industry, type: "industry" as const },
   ];
+
+  if (mode) {
+    return (
+      <TradeSheet
+        mode={mode}
+        stockName={displayName}
+        stockPrice={displayPrice}
+        categories={displayCategories}
+        changePercent={displayChangePercent}
+        isPositive={displayChangePercent > 0}
+        onClose={close}
+      />
+    );
+  }
 
   return (
     <div className={styles.container}>

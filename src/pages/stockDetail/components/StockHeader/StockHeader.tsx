@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { CategoryTag } from "../../StockDetail.types";
+import { CurrencyToggle } from "@/shared/components";
 import * as styles from "./StockHeader.css";
 
 interface StockHeaderProps {
@@ -40,14 +41,7 @@ export default function StockHeader({
             {change}
           </span>
         </div>
-        <button
-          type="button"
-          className={styles.toggleButton}
-          onClick={() => setShowWon((prev) => !prev)}
-          aria-label="원화/달러 토글"
-        >
-          {showWon ? "W" : "$"}
-        </button>
+        <CurrencyToggle currency={currency} onChange={setCurrency} />
       </div>
     </header>
   );

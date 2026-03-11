@@ -65,21 +65,4 @@ export const changeNegative = style({
   color: "#4D7AE5",
 });
 
-export const toggleButton = style({
-  width: "36px",
-  height: "36px",
-  fontSize: "14px",
-  fontWeight: 600,
-  color: vars.color.grey[700],
-  backgroundColor: vars.color.grey[100],
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
 
-  ":hover": {
-    backgroundColor: vars.color.grey[200],
-  },
-});
