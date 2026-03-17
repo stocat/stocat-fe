@@ -39,7 +39,7 @@ export const tabActive = style([
   tab,
   {
     color: vars.color.grey[900],
-    backgroundColor: vars.color.grey[200],
+    backgroundColor: vars.color.grey[50],
   },
 ]);
 
@@ -99,19 +99,15 @@ export const newsTimestamp = style({
 
 export const moreButton = style({
   display: "block",
-  width: "calc(100% - 40px)",
-  margin: "16px 20px",
-  padding: "12px",
+  width: "100%",
+  padding: "30px",
   fontSize: "14px",
   fontWeight: 500,
   color: vars.color.grey[700],
   backgroundColor: "transparent",
-  border: `1px solid ${vars.color.grey[300]}`,
-  borderRadius: "12px",
+  border: "none",
   cursor: "pointer",
   textAlign: "center",
-
-  ":hover": {
-    backgroundColor: vars.color.grey[50],
-  },
+  textDecoration: "underline",
+  textUnderlineOffset: "3px",
 });

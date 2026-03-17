@@ -62,7 +62,7 @@ export const nickname = style({
 });
 
 export const postText = style({
-  fontSize: "14px",
+  fontSize: "12px",
   fontWeight: 400,
   color: vars.color.grey[800],
   margin: 0,

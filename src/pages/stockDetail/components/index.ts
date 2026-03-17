@@ -8,3 +8,4 @@ export { PeriodSelector } from "./PeriodSelector";
 export { PriceInfo } from "./PriceInfo";
 export { StockHeader } from "./StockHeader";
 export { TabNav } from "./TabNav";
+export { TradeSheet } from "./TradeSheet";

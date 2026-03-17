@@ -7,9 +7,9 @@ const SvgPieChart03 = (props: SVGProps<SVGSVGElement>) => (
     viewBox="0 0 24 24"
     {...props}
   >
-    <path fill="#C5C5C5" d="M12 2a10 10 0 0 1 10 10H12z" opacity={0.12} />
+    <path fill="currentColor" d="M12 2a10 10 0 0 1 10 10H12z" opacity={0.12} />
     <path
-      stroke="#C5C5C5"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}

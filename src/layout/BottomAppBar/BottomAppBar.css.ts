@@ -13,6 +13,7 @@ export const bottomAppBar = style({
   justifyContent: "space-around",
   backgroundColor: vars.color.grey[50],
   borderTop: `1px solid ${vars.color.grey[200]}`,
+  zIndex: 100,
 });
 
 export const navItem = style({
@@ -40,7 +41,7 @@ export const navItemActive = style({
 
 export const navLabel = style({
   fontSize: "11px",
-  fontWeight: 500,
+  fontWeight: 600,
 });
 
 export const tradeBar = style({
@@ -57,6 +58,7 @@ export const tradeBar = style({
   padding: "0 20px",
   backgroundColor: "#ffffff",
   borderTop: `1px solid ${vars.color.grey[200]}`,
+  zIndex: 100,
 });
 
 export const tradeButton = style({

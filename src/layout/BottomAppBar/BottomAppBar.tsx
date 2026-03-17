@@ -6,6 +6,7 @@ import {
   PieChart03,
 } from "@/assets/icons/components";
 import * as styles from "./BottomAppBar.css";
+import { useTrade } from "@/app/TradeContext";
 
 const navItems = [
   { path: "/", label: "홈", Icon: HomeLine },
@@ -54,10 +55,12 @@ function TradeBar({ onSell, onBuy }: TradeBarProps) {
 
 export default function BottomAppBar() {
   const location = useLocation();
+  const { mode, open } = useTrade();
   const isStockDetailPage = location.pathname.startsWith("/stock/");
 
+  if (isStockDetailPage && mode !== null) return null;
   if (isStockDetailPage) {
-    return <TradeBar />;
+    return <TradeBar onSell={() => open("sell")} onBuy={() => open("buy")} />;
   }
 
   return <NavigationBar />;

@@ -8,12 +8,12 @@ const SvgNotificationText = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <path
-      fill="#C5C5C5"
+      fill="currentColor"
       d="M20.121 3.879A3 3 0 1 1 15.88 8.12 3 3 0 0 1 20.12 3.88"
       opacity={0.12}
     />
     <path
-      stroke="#C5C5C5"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
