@@ -10,7 +10,7 @@ export function useSellOrder() {
     mutationFn: (data: OrderRequest) => sellOrder(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.positions.all })
-      queryClient.invalidateQueries({ queryKey: ["cash"] })
+      queryClient.invalidateQueries({ queryKey: queryKeys.cash.all })
     },
   })
 }
