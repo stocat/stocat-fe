@@ -8,10 +8,12 @@ export const queryKeys = {
     detail: (id: number) => ["positions", id] as const,
   },
   cash: {
+    all: ["cash"] as const,
     balance: (currency: Currency) => ["cash", "balance", currency] as const,
     history: (params: CashHistoryParams) => ["cash", "history", params] as const,
   },
   exchange: {
+    historyRoot: ["exchange", "history"] as const,
     preview: (params: ExchangePreviewParams) => ["exchange", "preview", params] as const,
     history: (params?: ExchangeHistoryParams) => ["exchange", "history", params] as const,
   },
