@@ -10,7 +10,7 @@ export function useBuyOrder() {
     mutationFn: (data: OrderRequest) => buyOrder(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.positions.all })
-      queryClient.invalidateQueries({ queryKey: ["cash"] })
+      queryClient.invalidateQueries({ queryKey: queryKeys.cash.all })
     },
   })
 }
