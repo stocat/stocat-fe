@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as styles from "./HomeStockSection.css";
 import { MOCK_BALANCE } from "./HomeStockSection.mock";
 
@@ -24,10 +25,11 @@ export default function HomeStockSection({
 }: HomeStockSectionProps) {
   const [selectedFilter, setSelectedFilter] = useState<Filter>("현재가");
   const [currency, setCurrency] = useState<Currency>("won");
+  const navigate = useNavigate();
 
   return (
     <section className={styles.container}>
-      <button className={styles.ctaMyStocks}>
+      <button className={styles.ctaMyStocks} onClick={() => navigate("/my-investment")}>
         <span className={styles.ctaMyStockTitle}>내 종목 보기</span>
         <VectorRight
           width={6}

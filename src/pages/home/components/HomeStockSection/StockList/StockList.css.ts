@@ -42,5 +42,6 @@ globalStyle(`${badgeList} > button[aria-selected="true"]`, {
 export const contentList = style({
   height: "fit-content",
   maxHeight: 260,
+  width: "100%",
   overflowY: "auto",
 });

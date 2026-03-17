@@ -1,0 +1,55 @@
+import { vars } from "@/shared/styles/vars.css";
+import { style } from "@vanilla-extract/css";
+
+export const container = style({
+  paddingLeft: 12,
+  paddingRight: 12,
+  width: "100%",
+  height: 86,
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  borderTopWidth: 1,
+  borderTopStyle: "solid",
+  borderTopColor: vars.color.role.background2,
+  boxSizing: "border-box",
+});
+
+export const corpInfoWrapper = style({
+  width: "fit-content",
+  height: "fit-content",
+  display: "flex",
+  gap: 16,
+});
+
+export const corpInfoTitleWrapper = style({
+  width: "fit-content",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  gap: 4,
+});
+
+export const corpInfoTitle = style({
+  ...vars.typography.body3,
+  color: vars.color.role.text,
+});
+
+export const averagePrice = style({
+  ...vars.typography.body4,
+  color: vars.color.role.subtext,
+});
+
+export const priceWrapper = style({
+  width: "fit-content",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "flex-end",
+  gap: 4,
+});
+
+export const currentPrice = style({
+  ...vars.typography.body3,
+  color: vars.color.role.text,
+});

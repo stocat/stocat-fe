@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import MyStockContent from "./MyStockContent";
+import { MyStockContent } from "@/shared/components";
 import * as styles from "./StockList.css";
 import { MOCK_STOCKS } from "../HomeStockSection.mock";
 

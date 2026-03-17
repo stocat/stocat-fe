@@ -74,10 +74,21 @@ export const stockDetailHeader = style({
   alignItems: "center",
   borderBottom: `3px solid ${vars.color.grey[100]}`,
   backgroundColor: "white",
+  position: "relative",
 });
 
 export const stockDetailIconGroup = style({
   display: "flex",
   alignItems: "center",
   gap: 0,
+});
+
+export const headerTitleGroup = style({
+  display: "flex",
+  alignItems: "center",
+});
+
+export const headerTitle = style({
+  ...vars.typography.body1,
+  color: vars.color.role.text,
 });
