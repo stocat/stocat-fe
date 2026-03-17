@@ -18,7 +18,7 @@ export default function StockHeader({
   change,
   isPositive,
 }: StockHeaderProps) {
-  const [showWon, setShowWon] = useState(true);
+  const [currency, setCurrency] = useState<"dollar" | "won">("won");
 
   return (
     <header className={styles.container}>
