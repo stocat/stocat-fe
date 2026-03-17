@@ -9,7 +9,7 @@ export function useCancelOrder() {
     mutationFn: (orderId: number) => cancelOrder(orderId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.positions.all })
-      queryClient.invalidateQueries({ queryKey: ["cash"] })
+      queryClient.invalidateQueries({ queryKey: queryKeys.cash.all })
     },
   })
 }
