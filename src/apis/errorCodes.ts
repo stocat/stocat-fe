@@ -1,0 +1,85 @@
+export const ERROR_CODES = {
+  SUCCESS: 0,
+  SUCCESS_ALT: 1000,
+
+  UNSUPPORTED_MARKET: 10001,
+  INVALID_TICKER: 10002,
+  SYMBOL_HALTED_QUERY: 10003,
+  NOT_FOUND: 10004,
+  PAGE_SIZE_TOO_LARGE: 10005,
+  TIME_RANGE_TOO_LONG: 10006,
+  SORT_FIELD_INVALID: 10007,
+
+  DAILY_LIMIT_REACHED: 20001,
+  AVERAGING_NOT_ALLOWED: 20002,
+  INVALID_QUANTITY_PRECISION: 20003,
+  INSUFFICIENT_BALANCE_KRW: 20004,
+  INSUFFICIENT_POSITION_QTY: 20005,
+  POSITION_EXPIRED: 20006,
+  ORDER_ALREADY_FILLED: 20007,
+  CLIENT_ORDER_ID_DUP: 20008,
+  SYMBOL_HALTED_ORDER: 20009,
+  MARKET_CLOSED: 20010,
+  MIN_NOTIONAL_NOT_MET: 20011,
+  MAX_POSITION_LIMIT: 20012,
+  RISK_CHECK_FAILED: 20013,
+  MATCHING_ENGINE_ERROR: 20050,
+  ORDER_NOT_FOUND: 20090,
+  ORDER_INTERNAL_ERROR: 20099,
+
+  ORDER_ALREADY_CANCELED: 50001,
+
+  EXCHANGE_RATE_NOT_FOUND: 23000,
+  SAME_CURRENCY_EXCHANGE: 23001,
+  EXCHANGE_RATE_LOCK_EXPIRED: 23002,
+  EXCHANGE_PREVIEW_PARAM_INVALID: 23003,
+  EXCHANGE_LOCK_UNAUTHORIZED: 23004,
+
+  CASH_BALANCE_NOT_FOUND: 22001,
+  INSUFFICIENT_CASH_BALANCE: 22002,
+
+  INTERNAL_ERROR: 20000,
+} as const
+
+export const ERROR_MESSAGES: Record<number, string> = {
+  [ERROR_CODES.UNSUPPORTED_MARKET]: "지원하지 않는 시장입니다.",
+  [ERROR_CODES.INVALID_TICKER]: "지원하지 않는 티커 형식입니다.",
+  [ERROR_CODES.SYMBOL_HALTED_QUERY]: "해당 심볼은 거래정지 상태입니다.",
+  [ERROR_CODES.NOT_FOUND]: "요청한 리소스를 찾을 수 없습니다.",
+  [ERROR_CODES.PAGE_SIZE_TOO_LARGE]: "페이지 크기가 허용 범위를 초과했습니다.",
+  [ERROR_CODES.TIME_RANGE_TOO_LONG]: "조회 기간이 너무 깁니다.",
+  [ERROR_CODES.SORT_FIELD_INVALID]: "정렬 필드가 유효하지 않습니다.",
+  [ERROR_CODES.DAILY_LIMIT_REACHED]: "오늘은 해당 카테고리의 신규 매수를 이미 완료했습니다.",
+  [ERROR_CODES.AVERAGING_NOT_ALLOWED]: "당일 동일 종목에 대한 재매수/추매는 불가능합니다.",
+  [ERROR_CODES.INVALID_QUANTITY_PRECISION]: "수량 정밀도가 정책과 다릅니다.",
+  [ERROR_CODES.INSUFFICIENT_BALANCE_KRW]: "보유 현금이 부족합니다.",
+  [ERROR_CODES.INSUFFICIENT_POSITION_QTY]: "보유 수량이 부족합니다.",
+  [ERROR_CODES.POSITION_EXPIRED]: "해당 포지션은 만기 소멸되어 매도할 수 없습니다.",
+  [ERROR_CODES.ORDER_ALREADY_FILLED]: "주문은 이미 체결되었습니다.",
+  [ERROR_CODES.CLIENT_ORDER_ID_DUP]: "동일 clientOrderId가 이미 사용되었습니다.",
+  [ERROR_CODES.SYMBOL_HALTED_ORDER]: "거래정지된 심볼이라 주문할 수 없습니다.",
+  [ERROR_CODES.MARKET_CLOSED]: "현재 시장시간이 아닙니다.",
+  [ERROR_CODES.MIN_NOTIONAL_NOT_MET]: "최소 체결 금액 조건을 만족하지 않습니다.",
+  [ERROR_CODES.MAX_POSITION_LIMIT]: "보유 한도를 초과합니다.",
+  [ERROR_CODES.RISK_CHECK_FAILED]: "내부 리스크 규칙에 의해 차단되었습니다.",
+  [ERROR_CODES.MATCHING_ENGINE_ERROR]: "체결 엔진 오류로 주문을 처리하지 못했습니다.",
+  [ERROR_CODES.ORDER_NOT_FOUND]: "주문을 찾을 수 없습니다.",
+  [ERROR_CODES.ORDER_INTERNAL_ERROR]: "주문 처리 중 오류가 발생했습니다.",
+  [ERROR_CODES.ORDER_ALREADY_CANCELED]: "이미 취소된 거래입니다.",
+  [ERROR_CODES.EXCHANGE_RATE_NOT_FOUND]: "환율 정보를 불러올 수 없습니다.",
+  [ERROR_CODES.SAME_CURRENCY_EXCHANGE]: "같은 통화 간 환전은 불가합니다.",
+  [ERROR_CODES.EXCHANGE_RATE_LOCK_EXPIRED]: "환율 고정 시간이 만료되었습니다. 환전 미리보기를 다시 시도해 주세요.",
+  [ERROR_CODES.EXCHANGE_PREVIEW_PARAM_INVALID]: "fromAmount 또는 toAmount 중 하나만 입력해야 합니다.",
+  [ERROR_CODES.EXCHANGE_LOCK_UNAUTHORIZED]: "본인의 환전 미리보기에 대해서만 환전을 실행할 수 있습니다.",
+  [ERROR_CODES.CASH_BALANCE_NOT_FOUND]: "해당 통화에 대한 현금 잔액을 찾을 수 없습니다.",
+  [ERROR_CODES.INSUFFICIENT_CASH_BALANCE]: "가용 현금이 부족합니다.",
+  [ERROR_CODES.INTERNAL_ERROR]: "서버 오류가 발생했습니다.",
+}
+
+export function isSuccess(code: number): boolean {
+  return code === ERROR_CODES.SUCCESS || code === ERROR_CODES.SUCCESS_ALT
+}
+
+export function getErrorMessage(code: number, fallback?: string): string {
+  return ERROR_MESSAGES[code] ?? fallback ?? "알 수 없는 오류가 발생했습니다."
+}
