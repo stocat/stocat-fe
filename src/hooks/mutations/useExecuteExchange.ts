@@ -8,8 +8,8 @@ export function useExecuteExchange() {
   return useMutation({
     mutationFn: (data: ExchangeRequest) => executeExchange(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cash"] })
-      queryClient.invalidateQueries({ queryKey: ["exchange", "history"] })
+      queryClient.invalidateQueries({ queryKey: queryKeys.cash.all })
+      queryClient.invalidateQueries({ queryKey: queryKeys.exchange.historyRoot })
     },
   })
 }
