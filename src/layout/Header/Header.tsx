@@ -186,7 +186,9 @@ export default function Header() {
   const location = useLocation();
   const isStockDetailPage = location.pathname.startsWith("/stock/");
   const isMyInvestmentPage = location.pathname === "/my-investment";
-  const isExchangePage = location.pathname === "/exchange";
+  const isExchangePage =
+    location.pathname === "/exchange" ||
+    location.pathname.startsWith("/exchange/");
   const { data: indexInfo } = useIndexInfo();
   const changeColor = indexInfo?.isPositive ? "#F46163" : "#4285F4";
 

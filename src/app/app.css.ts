@@ -12,14 +12,19 @@ export const viewport = style({
 export const mobileFrame = style({
   position: "relative",
   width: "394px",
-  minHeight: "100vh",
+  minHeight: "100dvh",
   backgroundColor: "white",
-  overflow: "hidden",
+  overflowX: "clip",
   display: "flex",
   flexDirection: "column",
 });
 
 export const content = style({
   overflowY: "auto",
-  paddingBottom: "80px",
+  paddingBottom: "calc(80px + env(safe-area-inset-bottom))",
 });
+
+export const contentNoPadding = style([
+  content,
+  { paddingBottom: 0 },
+]);
