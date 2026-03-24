@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import * as styles from "./HomeExchange.css";
 import { HomeCoinOne, HomeCoinTwo } from "@/assets/icons/components";
 
@@ -16,10 +17,14 @@ export default function HomeExchange({
   description,
   rate,
 }: HomeExchangeProps) {
+  const navigate = useNavigate();
   const formattedRate = rate.toLocaleString();
 
   return (
-    <div className={styles.container({ variant })}>
+    <div
+      className={styles.container({ variant })}
+      onClick={() => navigate("/exchange")}
+    >
       {variant === "default" && (
         <>
           <div className={styles.defaultIconWrapper}>
