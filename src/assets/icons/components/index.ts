@@ -3,6 +3,7 @@ export { default as ArrowLeft } from "./ArrowLeft";
 export { default as ArrowRight } from "./ArrowRight";
 export { default as BarChart07 } from "./BarChart07";
 export { default as CharacterSnovy } from "./CharacterSnovy";
+export { default as CharacterSnovyOpen } from "./CharacterSnovyOpen";
 export { default as FlagKorea } from "./FlagKorea";
 export { default as FlagUsa } from "./FlagUsa";
 export { default as HomeCoinOne } from "./HomeCoinOne";

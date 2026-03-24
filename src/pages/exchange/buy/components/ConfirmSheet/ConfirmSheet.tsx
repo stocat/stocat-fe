@@ -21,8 +21,8 @@ export default function ConfirmSheet({
   const usdAfter = usdBalance + preview.toAmount;
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.sheet}>
+    <div className={styles.overlay} onClick={onBack}>
+      <div className={styles.sheet} onClick={(e) => e.stopPropagation()}>
         <p className={styles.title}>
           {preview.fromAmount.toLocaleString()}원을 ${preview.toAmount.toFixed(2)}로 환전하시겠어요?
         </p>

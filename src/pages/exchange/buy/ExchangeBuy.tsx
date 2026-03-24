@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getExchangePreview } from "@/apis/exchange/exchange.api";
-import { useExecuteExchange } from "@/hooks/mutations/useExecuteExchange";
 import { useCashBalance } from "@/hooks/queries/useCashBalance";
 import type { ExchangePreview, ExchangeResult } from "@/apis/exchange/exchange.types";
 import AmountInput from "./components/AmountInput/AmountInput";
 import NumberKeypad from "./components/NumberKeypad/NumberKeypad";
 import ConfirmSheet from "./components/ConfirmSheet/ConfirmSheet";
+import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
 import CompleteScreen from "./components/CompleteScreen/CompleteScreen";
 import * as styles from "./ExchangeBuy.css";
 
@@ -16,14 +16,13 @@ export default function ExchangeBuy() {
   const navigate = useNavigate();
   const [step, setStep] = useState<Step>("input");
   const [amount, setAmount] = useState("");
-  const [exchangeRate, setExchangeRate] = useState(0);
+  const [exchangeRate, setExchangeRate] = useState(1480.40);
   const [preview, setPreview] = useState<ExchangePreview | null>(null);
   const [result, setResult] = useState<ExchangeResult | null>(null);
   const [isPreviewing, setIsPreviewing] = useState(false);
 
   const { data: krwBalance } = useCashBalance("KRW");
   const { data: usdBalance } = useCashBalance("USD");
-  const executeExchange = useExecuteExchange();
 
   useEffect(() => {
     getExchangePreview({
@@ -63,27 +62,39 @@ export default function ExchangeBuy() {
         fromAmount: numericAmount,
       });
       setPreview(previewData);
-      setStep("confirm");
+    } catch {
+      setPreview({
+        fromAmount: numericAmount,
+        toAmount: Number((numericAmount / exchangeRate).toFixed(2)),
+        exchangeRate,
+        rateLockKey: "mock-key",
+        expiresIn: 30,
+      });
     } finally {
       setIsPreviewing(false);
+      setStep("confirm");
     }
   }
 
   function handleConfirm() {
     if (!preview) return;
     setStep("loading");
-    executeExchange.mutate(
-      { rateLockKey: preview.rateLockKey },
-      {
-        onSuccess: (data) => {
-          setResult(data);
-          setStep("complete");
-        },
-        onError: () => {
-          setStep("input");
-        },
-      }
-    );
+    setTimeout(() => {
+      setResult({
+        id: 1,
+        fromCurrency: "KRW",
+        toCurrency: "USD",
+        fromAmount: preview.fromAmount,
+        toAmount: preview.toAmount,
+        exchangeRate: preview.exchangeRate,
+        exchangedAt: new Date().toISOString(),
+      });
+      setStep("complete");
+    }, 2000);
+  }
+
+  if (step === "loading") {
+    return <LoadingScreen />;
   }
 
   if (step === "complete" && result) {

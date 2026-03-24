@@ -1,5 +1,15 @@
-import { style } from "@vanilla-extract/css";
+import { keyframes, style } from "@vanilla-extract/css";
 import { vars } from "@/shared/styles/vars.css";
+
+const fadeIn = keyframes({
+  from: { opacity: 0 },
+  to: { opacity: 1 },
+});
+
+const slideUp = keyframes({
+  from: { transform: "translateY(100%)" },
+  to: { transform: "translateY(0)" },
+});
 
 export const overlay = style({
   position: "fixed",
@@ -9,6 +19,7 @@ export const overlay = style({
   display: "flex",
   alignItems: "flex-end",
   justifyContent: "center",
+  animation: `${fadeIn} 300ms ease-out`,
 });
 
 export const sheet = style({
@@ -20,11 +31,13 @@ export const sheet = style({
   display: "flex",
   flexDirection: "column",
   gap: 20,
+  animation: `${slideUp} 300ms ease-out`,
 });
 
 export const title = style({
   ...vars.typography.subtitle1,
   color: vars.color.role.text,
+  whiteSpace: "pre-line",
 });
 
 export const infoList = style({
@@ -67,7 +80,8 @@ export const buttonBase = style({
   borderRadius: 8,
   border: "none",
   cursor: "pointer",
-  ...vars.typography.body3,
+  ...vars.typography.body4,
+  fontWeight: "700",
 });
 
 export const backButton = style([
