@@ -5,6 +5,7 @@ import { HomeRoutes } from "@/pages/home/routes";
 import { marketRoutes } from "@/pages/market/routes";
 import { stockDetailRoutes } from "@/pages/stockDetail/routes";
 import { myInvestmentRoutes } from "@/pages/myInvestment/routes";
+import { exchangeRoutes } from "@/pages/exchange/routes";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
       ...marketRoutes,
       ...stockDetailRoutes,
       ...myInvestmentRoutes,
+      ...exchangeRoutes,
     ],
   },
 ]);

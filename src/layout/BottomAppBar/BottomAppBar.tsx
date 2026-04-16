@@ -57,7 +57,11 @@ export default function BottomAppBar() {
   const location = useLocation();
   const { mode, open } = useTrade();
   const isStockDetailPage = location.pathname.startsWith("/stock/");
+  const isExchangePage =
+    location.pathname === "/exchange" ||
+    location.pathname.startsWith("/exchange/");
 
+  if (isExchangePage) return null;
   if (isStockDetailPage && mode !== null) return null;
   if (isStockDetailPage) {
     return <TradeBar onSell={() => open("sell")} onBuy={() => open("buy")} />;

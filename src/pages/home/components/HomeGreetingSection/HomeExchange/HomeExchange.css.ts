@@ -12,6 +12,7 @@ export const container = recipe({
     backgroundColor: vars.color.role.background2,
     overflow: "hidden",
     borderRadius: 16,
+    cursor: "pointer",
   },
   variants: {
     variant: {

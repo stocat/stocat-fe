@@ -1,18 +1,17 @@
 import type { SVGProps } from "react";
-const SvgVectorRight = (props: SVGProps<SVGSVGElement>) => (
+const SvgArrowRight = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    viewBox="0 0 24 24"
+    viewBox="0 0 16 16"
     {...props}
   >
     <path
-      stroke="#A6A6A6"
-      strokeWidth="1.5"
+      stroke="#646464"
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="m9 18 6-6-6-6"
+      d="M3.333 8h9.333M10 5.333 12.667 8 10 10.667"
     />
   </svg>
 );
-export default SvgVectorRight;
+export default SvgArrowRight;
